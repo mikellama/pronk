@@ -41,9 +41,9 @@
 
 # change all of these things:
 
-nick = "mwaaa"          # the nickname the bot uses
+nick = "pronk"          # the nickname the bot uses
 username = "pronk"      # the bot's username
-channel = "##bot-test"  # the channel it joins when you start the bot script 
+channel = "##llamas"  # the channel it joins when you start the bot script 
 secret = "notreallythis" 
 updateKey = "?update"   # the command for updating the bot
 admins = ["mikez"]      # a list of admins for the bot, who can give commands 
