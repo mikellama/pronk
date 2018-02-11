@@ -1,3 +1,5 @@
+# change all of these things
+
 nick = "mwaaa"
 username = "pronk"
 channel = "##bot-test"
