@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-## Copyright (C) 2018 MikeLlama
+## Copyright (C) 2018 Mike Rose
 #
 ## This is version 0.5 of the Copyfree Open Innovation License.
 ##
