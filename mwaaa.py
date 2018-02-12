@@ -69,3 +69,4 @@ reply["?duckgoose"] = "The coolest duck/goose hybrid around. He's so perfect, wo
 reply["?shantaram3013"] = "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
 reply["?Kremator"] = "Booo!"
 reply["?Nawab"] = "The cool and sometimes mischievious guy next door who likes C++ and tea"
+reply["?welcome"] = "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
