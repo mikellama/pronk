@@ -51,7 +51,7 @@ admins = ["mikez"]      # a list of admins for the bot, who can give commands
 # the reply ["?foo"] list below defines a list of replies for preset commands that can be used for comedic effect
 reply = dict()
 reply["?duckgoose"] = "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
-reply["?fChanX"] = "She's young and vibrant and perfect <3"
+reply["?fChanX"] = "1 young and vibrant and perfect llama <3"
 reply["?help"] = "You're on your own."
 reply["?Kremator"] = "Booo!"
 reply["?letty"] = "All hail letty, our llama queen. She's leet af."
