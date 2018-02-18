@@ -63,6 +63,8 @@ def act(c,msg,sender,mem):
 
     #text replacement
     elif c == "?/":
+        if msg[-1] == '/':
+            msg = msg[:-1]
         mfull = msg[msg.find("?/")+2:]
         mbad = mfull[:mfull.find("/")]
         mgood = mfull[mfull.find("/")+1:]
