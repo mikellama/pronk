@@ -57,8 +57,11 @@ def act(c,msg,sender,mem):
 
     #song
     elif c == "?song":
-        req = requests.get("http://letty.tk:8000/rds-xml.xsl")
-        r = req.content[29:-9]
+        try:
+            req = requests.get("http://letty.tk:8000/rds-xml.xsl")
+            r = req.content[29:-9]
+        except:
+            r = "not now " + sender
         #r = "This feature is disabled :("
 
     #text replacement
