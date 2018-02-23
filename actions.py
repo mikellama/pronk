@@ -76,9 +76,18 @@ def act(c,msg,sender,mem):
                 if m.find(mbad) != -1 and m.find("?/") == -1:   
                     oldSender = m[:m.find("??")]
                     mes = m[len(oldSender)+2:]
+                    if mes.startswith("\x01ACTION"): # /me
+                        mes = mes[8:-1]
+                        action = True
+                    else:
+                        action = False
                     preBad = mes[:mes.find(mbad)]
                     postBad = mes[mes.find(mbad)+len(mbad):]
-                    fixed = '"'+preBad + mgood + postBad+'"'
+                    fixed = preBad + mgood + postBad
+                    if action:
+                        fixed = "* "+oldSender+" "+fixed
+                    else:
+                        fixed = '"'+fixed+'"'
                     r = "\x02"+oldSender+"\x02 meant: " +fixed
                     if sender != oldSender:
                         r = "\x02"+sender+'\x02 thinks ' + r
