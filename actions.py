@@ -42,6 +42,7 @@
 import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
+from HTMLParser import HTMLParser
 
 # define a list of commands 
 commands = ["?song", "?wiki", "?bye", "?ud", "?/"]
@@ -58,8 +59,11 @@ def act(c,msg,sender,mem):
     #song
     elif c == "?song":
         try:
+		
             req = requests.get("http://letty.tk:8000/rds-xml.xsl")
-            r = req.content[29:-9]
+            h = HTMLParser()
+            r = h.unescape(req.content[29:-9])
+			
         except:
             r = "not now " + sender
         #r = "This feature is disabled :("
