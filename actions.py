@@ -59,10 +59,11 @@ def act(c,msg,sender,mem):
     #song
     elif c == "?song":
         try:
-		
             req = requests.get("http://letty.tk:8000/rds-xml.xsl")
             h = HTMLParser()
             r = h.unescape(req.content[29:-9])
+	    if len(r) < 3:
+		r = "I don't hear anything."			
 			
         except:
             r = "not now " + sender
