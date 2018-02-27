@@ -43,9 +43,10 @@ import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
 from HTMLParser import HTMLParser
+from imdbparser import IMDb
 
 # define a list of commands 
-commands = ["?song", "?wiki", "?bye", "?ud", "?/"]
+commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
@@ -123,6 +124,22 @@ def act(c,msg,sender,mem):
         except wikipedia.exceptions.PageError as e2:
             r = "Didn't find anything"
 
+    #IMDb
+    elif c == "?imdb":
+		imdb = IMDb()
+        title = msg[msg.find("?imdb") + 6:]
+		try:
+			searchResult = imdb.search_movie(title)
+			searchResult.fetch()
+			movie = searchResult.results[0]
+			movie.fetch()
+			if len(searchResult.results) < 1:
+				r = "I didn't find anything"
+			else:
+				r = movie.title+" ("+str(movie.year)+") -- "+movie.plot
+		except:
+			r = "something went wrong :/"
+	    
     #bot driver
     if c == "PRIVMSG "+mwaaa.nick and sender in mwaaa.admins:
         r = msg[msg.find("PRIVMSG "+mwaaa.nick)+15:]
