@@ -96,7 +96,7 @@ def act(c,msg,sender,mem):
                         fixed = '"'+fixed+'"'
                     r = "\x02"+oldSender+"\x02 meant: " +fixed
                     if sender != oldSender:
-                        r = "Bitch, \x02"+sender+'\x02 thinks ' + r
+                        r = "\x02"+sender+'\x02 thinks ' + r
                     return r
         except:
 	    r = "well that didn't work :/"
