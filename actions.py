@@ -91,7 +91,7 @@ def act(c,msg,sender,mem):
                     postBad = mes[mes.find(mbad)+len(mbad):]
                     fixed = preBad + mgood + postBad
                     if action:
-                        fixed = "* "+oldSender+" "+fixed
+                        fixed = "* \x02"+oldSender+"\x02 "+fixed
                     else:
                         fixed = '"'+fixed+'"'
                     r = "\x02"+oldSender+"\x02 meant: " +fixed
