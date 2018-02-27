@@ -126,9 +126,9 @@ def act(c,msg,sender,mem):
 
     #IMDb
     elif c == "?imdb":
-		imdb = IMDb()
+	    imdb = IMDb()
         title = msg[msg.find("?imdb") + 6:]
-		try:
+	    try:
 			searchResult = imdb.search_movie(title)
 			searchResult.fetch()
 			movie = searchResult.results[0]
