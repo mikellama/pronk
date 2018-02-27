@@ -45,17 +45,18 @@ from time import sleep
 import actions
 import mwaaa
 import passcode
+import details
 
 # Connect to the internet, then to IRC(at freenode for now, but it can be changed to other servers)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(("irc.freenode.net", 6667))
-sock.send("USER "+mwaaa.username+" 2 3 "+mwaaa.username+ "\n")
-sock.send("NICK "+mwaaa.nick+"\n")
+sock.send("USER "+details.username+" 2 3 "+details.username+ "\n")
+sock.send("NICK "+details.nick+"\n")
 
 # use mwaaa.secret to use the password from the mwaaa.py file. 
 sock.send("PRIVMSG NickServ :identify "+passcode.secret+" \n")
 sleep(30)  # finish ident before joining channel
-sock.send("JOIN "+mwaaa.channel+"\n")
+sock.send("JOIN "+details.channel+"\n")
 
 # instantiate message buffer
 msgMem = []
@@ -67,7 +68,7 @@ while True:
 
     sender = msg[1:msg.find('!')]
     
-    mloc = msg.find("PRIVMSG "+mwaaa.channel)+len(mwaaa.channel)+10
+    mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
     msgMem.append(sender +"??"+ msg[mloc:])
 
     if len(msgMem) > 20:
@@ -86,5 +87,5 @@ while True:
         msgLow = msg.lower()
         if msgLow.find(command.lower()) != -1:
             r = actions.act(command, msg, sender, msgMem)
-            sock.send("PRIVMSG "+mwaaa.channel+" :"+r+"\n")
+            sock.send("PRIVMSG "+details.channel+" :"+r+"\n")
 
