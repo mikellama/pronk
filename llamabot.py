@@ -84,7 +84,7 @@ while True:
 
     for command in actions.commands:
         msgLow = msg.lower()
-        if msgLow.find(command) != -1:
+        if msgLow.find(command.lower()) != -1:
             r = actions.act(command, msg, sender, msgMem)
             sock.send("PRIVMSG "+mwaaa.channel+" :"+r+"\n")
 
