@@ -44,7 +44,6 @@ import re, socket, os
 from time import sleep
 import actions
 import mwaaa
-import passcode
 import details
 
 # Connect to the internet, then to IRC(at freenode for now, but it can be changed to other servers)
@@ -54,7 +53,7 @@ sock.send("USER "+details.username+" 2 3 "+details.username+ "\n")
 sock.send("NICK "+details.nick+"\n")
 
 # use mwaaa.secret to use the password from the mwaaa.py file. 
-sock.send("PRIVMSG NickServ :identify "+passcode.secret+" \n")
+sock.send("PRIVMSG NickServ :identify "+details.secret+" \n")
 sleep(30)  # finish ident before joining channel
 sock.send("JOIN "+details.channel+"\n")
 
