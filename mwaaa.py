@@ -52,6 +52,7 @@ admins = ["mikez"]      # a list of admins for the bot, who can give commands
 reply = dict()
 reply["?duckgoose"] = "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
 reply["?fChanX"] = "One young, vibrant and perfect llama. <3"
+reply["?GPenguin" = "Being from Germany, he enjoys meeting all kinds of people on IRC"]
 reply["?help"] = "You're on your own."
 reply["?Kremator"] = "Booo!"
 reply["?letty"] = "All hail letty, our llama queen. She's leet af."
