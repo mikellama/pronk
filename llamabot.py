@@ -86,5 +86,12 @@ while True:
         msgLow = msg.lower()
         if msgLow.find(command.lower()) != -1:
             r = actions.act(command, msg, sender, msgMem)
-            sock.send("PRIVMSG "+details.channel+" :"+r+"\n")
+            try:
+                target = msg.split(' ')[2]
+                if target.lstrip('@+').startswith('#'):
+                    sock.send("PRIVMSG "+target+" :"+r+"\n")
+                else:
+                    sock.send("PRIVMSG "+sender+" :"+r+"\n")
+            except IndexError:
+                pass
 
