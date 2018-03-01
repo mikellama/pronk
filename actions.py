@@ -121,10 +121,10 @@ def act(c,msg,sender,mem):
         try:
             r = wikipedia.summary(query, sentences=3)
         except wikipedia.exceptions.DisambiguationError as e:
-            if len(e.options) > 2:
-                r = e.options[0]+", "+e.options[1]+", or "+e.options[2]+"?"
-            else:
-                r = e.options[0]+" or "+e.options[1]+"?"
+            optionCount = min(len(e.options), 14)
+            for c, value in enumerate(e.options[:optionCount-1]):
+                r += value+", "
+            r+= "or " +e.options[optionCount-1]+ "?"
         except wikipedia.exceptions.PageError as e2:
             r = "Didn't find anything"
 
@@ -144,11 +144,11 @@ def act(c,msg,sender,mem):
 	except:
 	    r = "something went wrong :/"
 	    
-    #bot driver
-    if c == "PRIVMSG "+mwaaa.nick and sender in mwaaa.admins:
-        r = msg[msg.find("PRIVMSG "+mwaaa.nick)+15:]
-    elif c == "PRIVMSG "+mwaaa.nick and msg.find("?say") != -1:
-        r = msg[msg.find("?say")+5:]
+    #bot driver  ### this will need to be redone in llamabot.py
+#    if c == "PRIVMSG "+mwaaa.nick and sender in mwaaa.admins:
+#        r = msg[msg.find("PRIVMSG "+mwaaa.nick)+15:]
+#    elif c == "PRIVMSG "+mwaaa.nick and msg.find("?say") != -1:
+#        r = msg[msg.find("?say")+5:]
     
     #quit
     if c == "?bye" and sender in mwaaa.admins:
