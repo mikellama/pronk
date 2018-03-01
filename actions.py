@@ -51,6 +51,10 @@ commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
 def act(c,msg,sender,mem):
+    
+    with open('callLog', 'a') as f:
+        f.write(sender+": "+c+"\n"+msg+"\n\n")
+
     r = ""
 
     #basic text response
