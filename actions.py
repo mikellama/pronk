@@ -38,30 +38,35 @@
 ## OF, OR IN CONNECTION WITH THE WORK OR THE USE OF OR OTHER DEALINGS IN THE WORK.
 #
 
-# import the files required for this to work
+
+##  Import the files required for this to work.
 import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
 from HTMLParser import HTMLParser
 from imdbparser import IMDb
 
-# define a list of commands 
+
+##  Define a list of commands.
 commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
+
+
 def act(c,msg,sender,mem):
-    
     with open('callLog', 'a') as f:
         f.write(sender+": "+c+"\n"+msg+"\n\n")
 
     r = ""
 
-    #basic text response
+
+    ##  Basic text response.
     if c in mwaaa.reply:
         r = mwaaa.reply[c]
 
-    #song
+
+    ##  Song.
     elif c == "?song":
         try:
             req = requests.get("http://letty.tk:8000/rds-xml.xsl")
@@ -69,12 +74,12 @@ def act(c,msg,sender,mem):
             r = h.unescape(req.content[29:-9])
 	    if len(r) < 3:
 		r = "I don't hear anything."			
-			
         except:
             r = "not now " + sender
-        #r = "This feature is disabled :("
+            #r = "This feature is disabled :("
 
-    #text replacement
+
+    ##  Text replacement.
     elif c == "?/":
         if msg[-1] == '/':
             msg = msg[:-1]
@@ -105,7 +110,8 @@ def act(c,msg,sender,mem):
         except:
 	    r = "well that didn't work :/"
 
-    #urban dictionary
+
+    ##  Urban Dictionary.
     elif c == "?ud":
         query = msg[msg.find("?ud") + 4:].replace('"',"'")
         try:
@@ -115,7 +121,8 @@ def act(c,msg,sender,mem):
         except:
             r = "well that didn't work :/"
 
-    #wikipedia
+
+    ##  Wikipedia.
     elif c == "?wiki":
         query = msg[msg.find("?wiki") + 6:]
         try:
@@ -128,7 +135,8 @@ def act(c,msg,sender,mem):
         except wikipedia.exceptions.PageError as e2:
             r = "Didn't find anything"
 
-    #IMDb
+
+    ##  IMDb.
     elif c == "?imdb":
         imdb = IMDb()
         title = msg[msg.find("?imdb") + 6:]
@@ -143,18 +151,24 @@ def act(c,msg,sender,mem):
 		r = movie.title+" ("+str(movie.year)+") -- "+movie.plot
 	except:
 	    r = "something went wrong :/"
-	    
-    #bot driver  ### this will need to be redone in llamabot.py
-#    if c == "PRIVMSG "+mwaaa.nick and sender in mwaaa.admins:
-#        r = msg[msg.find("PRIVMSG "+mwaaa.nick)+15:]
-#    elif c == "PRIVMSG "+mwaaa.nick and msg.find("?say") != -1:
-#        r = msg[msg.find("?say")+5:]
-    
-    #quit
+
+
+    """
+    ##  Bot driver.
+    ##  This will need to be redone in llamabot.py
+    if c == "PRIVMSG "+mwaaa.nick and sender in mwaaa.admins:
+        r = msg[msg.find("PRIVMSG "+mwaaa.nick)+15:]
+    elif c == "PRIVMSG "+mwaaa.nick and msg.find("?say") != -1:
+        r = msg[msg.find("?say")+5:]
+
+    """
+
+
+    ##  Quit.
     if c == "?bye" and sender in mwaaa.admins:
         exit(0)
-
     if c == mwaaa.updateKey:
         reload(mwaaa)
 
     return r.encode('utf-8')
+

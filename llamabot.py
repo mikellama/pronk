@@ -39,48 +39,53 @@
 #
 
 
-# import the required libraries/files for this to work
+##  Import the required libraries/files for this to work.
 import re, socket, os
 from time import sleep
 import actions
 import mwaaa
 import details
 
-# Connect to the internet, then to IRC(at freenode for now, but it can be changed to other servers)
+
+##  Connect to the internet, then to IRC (at freenode for now, but it can be changed to other servers).
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(("irc.freenode.net", 6667))
 sock.send("USER "+details.username+" 2 3 "+details.username+ "\n")
 sock.send("NICK "+details.nick+"\n")
 
-# use mwaaa.secret to use the password from the mwaaa.py file. 
+
+##  Use mwaaa.secret to use the password from the mwaaa.py file.
 sock.send("PRIVMSG NickServ :identify "+details.secret+" \n")
 sleep(30)  # finish ident before joining channel
 sock.send("JOIN "+details.channel+"\n")
 
-# instantiate message buffer
-msgMem = []
 
+##  Instantiate message buffer.
+msgMem = []
 while True:
     msg = sock.recv(2048)
     print(msg)
-    msg = msg.strip("\n\r")
 
+    msg = msg.strip("\n\r")
     sender = msg[1:msg.find('!')]
-    
     mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
     msgMem.append(sender +"??"+ msg[mloc:])
 
     if len(msgMem) > 20:
         msgMem.pop(0)
-        
-# if you receive a /PING send a response
+
+
+    ##  If you receive a /PING send a response.
     if msg.find("PING :") != -1:
         sock.send("PONG :pingis\n")
-# if you find the update key defined in mwaaa.py, print 'update complete' and reload actions.py and mwaaa.py
+
+
+    ##  If you find the update key defined in mwaaa.py, print 'update complete' and reload actions.py and mwaaa.py
     if msg.find(mwaaa.updateKey) != -1:
         print("update complete")
         reload(actions)
         reload(mwaaa)
+
 
     for command in actions.commands:
         msgLow = msg.lower()
