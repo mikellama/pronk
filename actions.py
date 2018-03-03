@@ -55,6 +55,12 @@ commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
 
 def act(c,msg,sender,mem):
+    '''
+    c is a command from commands list defined above
+    msg is the whole message send that contains the command trigger
+    sender is part of msg, the nick for the sender
+    mem is a list or strings containing the last few 'msg's
+    '''
     with open('callLog', 'a') as f:
         f.write(sender+": "+c+"\n"+msg+"\n\n")
 
