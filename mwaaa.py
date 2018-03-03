@@ -76,5 +76,5 @@ reply["?website"]        =  "http://llamas.haxed.net"
 reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
 reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
-reply["?Zerock"]         =  "Mwaaa. Please remember, Zerock is the leetest llama."
+reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
 
