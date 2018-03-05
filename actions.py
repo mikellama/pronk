@@ -91,7 +91,7 @@ def act(c,msg,sender,mem):
             msg = msg[:-1]
         mfull = msg[msg.find("?/")+2:]
         mbad = mfull[:mfull.find("/")]
-        mgood = mfull[mfull.find("/")+1:]
+        mgood = '\x02' + mfull[mfull.find("/")+1:] + '\x02'
         try:
             for m in reversed(mem[:-1]):
                 if m.find(mbad) != -1 and m.find("?/") == -1:   
