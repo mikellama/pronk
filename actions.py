@@ -43,12 +43,13 @@
 import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
+import random
 from HTMLParser import HTMLParser
 from imdbparser import IMDb
 
 
 ##  Define a list of commands.
-commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb"]
+commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
@@ -84,6 +85,9 @@ def act(c,msg,sender,mem):
             r = "not now " + sender
             #r = "This feature is disabled :("
 
+    ##  Coin Flip
+    elif c == "?coin":
+        r = random.sample(["heads", "tails"], 1)
 
     ##  Text replacement.
     elif c == "?/":
