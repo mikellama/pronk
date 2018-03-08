@@ -124,8 +124,8 @@ def act(c,msg,sender,mem):
 
     ##  Urban Dictionary.
     elif c == "?ud":
-        query = msg[msg.find("?ud") + 4:].replace('"',"'")
         try:
+            query = msg[msg.find("?ud") + 4:].replace('"',"'")
             defs = ud.define(query)
             for d in defs[:3]:
                 r += d.definition.replace('\n', ' ').replace('\r', ' ')
@@ -135,8 +135,8 @@ def act(c,msg,sender,mem):
 
     ##  Wikipedia.
     elif c == "?wiki":
-        query = msg[msg.find("?wiki") + 6:]
         try:
+            query = msg[msg.find("?wkik") + 6:]
             r = wikipedia.summary(query, sentences=3)
         except wikipedia.exceptions.DisambiguationError as e:
             optionCount = min(len(e.options), 14)
