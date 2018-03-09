@@ -136,7 +136,7 @@ def act(c,msg,sender,mem):
     ##  Wikipedia.
     elif c == "?wiki":
         try:
-            query = msg[msg.find("?wkik") + 6:]
+            query = msg[msg.find("?wiki") + 6:]
             r = wikipedia.summary(query, sentences=3)
         except wikipedia.exceptions.DisambiguationError as e:
             optionCount = min(len(e.options), 14)
