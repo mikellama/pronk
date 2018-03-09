@@ -54,7 +54,7 @@ admins = ["mikez"]         # the list of Admins for the bot, who can give comman
 ##  They can be used for comedic effect.
 reply = dict()           #   <--- create the reply dictionary
 reply["?duckgoose"]      =  "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
-reply["?fChanX"]         =  "One young, vibrant and perfect llama. <3"
+reply["?fChanX"]         =  "The most lovable llama <3"
 reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of people on IRC"
 reply["?help"]           =  "You're on your own."
 reply["?Kremator"]       =  "Booo!"
