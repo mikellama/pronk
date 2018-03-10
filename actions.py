@@ -91,7 +91,7 @@ def act(c,msg,sender,mem):
         r = r[0]
 
     ##  Text replacement.
-    elif c == "?/":
+    elif c == "?/" and msg[:2] == "?/":
         if msg[-1] == '/':
             msg = msg[:-1]
         mfull = msg[msg.find("?/")+2:]
