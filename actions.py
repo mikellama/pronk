@@ -49,7 +49,7 @@ from imdbparser import IMDb
 
 
 ##  Define a list of commands.
-commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin"]
+commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
 
@@ -84,6 +84,14 @@ def act(c,msg,sender,mem):
         except:
             r = "not now " + sender
             #r = "This feature is disabled :("
+
+    ## Slap
+    elif c == "?slap":
+        audience = msg[msg.find("?slap") + 6:]
+        if len(audience) > 1:
+            r = sender + " slaps themself for the amusement of " + audience
+        else:
+            r = sender + " slaps themself."
 
     ##  Coin Flip
     elif c == "?coin":
