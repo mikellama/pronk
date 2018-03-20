@@ -39,37 +39,42 @@
 #
 
 
-# change all of these things:
 
-nick = "pronk"          # the nickname the bot uses
-username = "pronk"      # the bot's username
-channel = "##llamas"  # the channel it joins when you start the bot script 
-secret = "notreallythis" 
-updateKey = "?update"   # the command for updating the bot
-admins = ["mikez"]      # a list of admins for the bot, who can give commands 
+##  Change all of these things:
+nick = "pronk"             # the nickname the bot uses
+username = "pronk"         # the username the bot uses
+channel = "##llamas"       # the channel  the bot joins, when you start the bot script 
+secret = "notreallythis"   # -
+updateKey = "?update"      # the command for updating the bot
+admins = ["mikez"]         # the list of Admins for the bot, who can give commands 
 
-# the reply ["?foo"] list below defines a list of replies for preset commands that can be used for comedic effect
-reply = dict()
-reply["?duckgoose"] = "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
-reply["?fChanX"] = "1 young and vibrant and perfect llama <3"
-reply["?help"] = "You're on your own."
-reply["?Kremator"] = "Booo!"
-reply["?letty"] = "All hail letty, our llama queen. She's leet af."
-reply["?list"] = "?song ?wiki ?ud ?/old/new ?help"
-reply["?mikez"] = "My daddy :)"
-reply["?more"] = "No! No more!"
-reply["?mwaaa"] = "That's llama speak."
-reply["?Nawab"] = "The cool and sometimes mischievious guy next door who likes C++ and tea"
-reply["?[n0mad]"] = "[n0mwaaad]"
-reply["?pebble"] = "o"
-reply["?pronk"] = "who me? llamabot by mikellama, https://github.com/mikellama/ircbot-llama/"
-reply["?radio"] = "http://letty.tk"
-reply["?Roserin"] = "?hm yes"
-reply["?shantaram3013"] = "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
-reply["?Time-Warp"] = "OH NOZ"
-reply["?website"] = "http://llamas.haxed.net"
-reply["?welcome"] = "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
-reply["?wodencafe"] = "The Java master!"
-reply["?Zerock"] = "Henlo. Please remember, Zerock is the leetest llama."
 
-reply["?Taco"] = "Im yummy! Gobble me up in a hurry and go to taco heaven!"
+
+##  The reply ["?foo"] list below, defines a list of replies for preset commands.
+##  They can be used for comedic effect.
+reply = dict()           #   <--- create the reply dictionary
+reply["?duckgoose"]      =  "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
+reply["?fChanX"]         =  "The most lovable llama <3"
+reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of people on IRC"
+reply["?help"]           =  "You're on your own."
+reply["?Kremator"]       =  "Booo!"
+reply["?letty"]          =  "All hail letty, our llama queen. She's leet af."
+reply["?list"]           =  "?song ?wiki ?ud ?/old/new ?help ?imdb ?coin ?slap"
+reply["?mikez"]          =  "My daddy! :)"
+reply["?more"]           =  "No! No more!"
+reply["?mwaaa"]          =  "That's llama speak."
+reply["?Nawab"]          =  "The cool and sometimes mischievious guy next door who likes C++ and tea."
+reply["?[n0mad]"]        =  "[n0mwaaad]"
+reply["?pebble"]         =  "o"
+reply["?pronk"]          =  "Who me? llamabot by mikellama, https://github.com/mikellama/ircbot-llama/"
+reply["?radio"]          =  "http://letty.tk"
+reply["?Roserin"]        =  "?Hm yes."
+reply["?shantaram3013"]  =  "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
+reply["?Taco"]           =  "Im yummy! Gobble me up in a hurry and go to taco heaven!"
+reply["?Time-Warp"]      =  "OH NOZ!"
+reply["?website"]        =  "http://llamas.haxed.net"
+reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
+reply["?wodencafe"]      =  "The Java master!"
+reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
+reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
+
