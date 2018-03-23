@@ -184,7 +184,7 @@ def act(c,msg,sender,mem):
 
 
     ##  Quit.
-    if c == "?bye" and sender in mwaaa.admins:
+    if c == "?bye" and sender in details.admins:
         exit(0)
     if c == mwaaa.updateKey:
         reload(mwaaa)
