@@ -48,7 +48,10 @@ import details
 import random
 from HTMLParser import HTMLParser
 from imdbparser import IMDb
+import sys 
 
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
 listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/"]
