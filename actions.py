@@ -51,9 +51,9 @@ from imdbparser import IMDb
 
 
 ##  Define a list of commands.
-commands = ["?song", "?ask", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap", "?calc"]
-commands += list(mwaaa.reply.keys())
-commands += ["PRIVMSG "+details.nick, mwaaa.updateKey]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/"]
+commands = listCommands + list(mwaaa.reply.keys())
+commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list"]
 
 
 
@@ -100,6 +100,10 @@ def act(c,msg,sender,mem):
         except:
             r = "error getting answer"
             #r = "This feature is disabled :("
+
+    ## List of Commands
+    elif c == "?list":
+        r = " ".join(listCommands)
 
     ## Calculator
     elif c == "?calc":
