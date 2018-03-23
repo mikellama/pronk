@@ -40,6 +40,7 @@
 
 
 ##  Import the files required for this to work.
+from __future__ import division
 import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
@@ -50,7 +51,7 @@ from imdbparser import IMDb
 
 
 ##  Define a list of commands.
-commands = ["?song", "?ask", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap"]
+commands = ["?song", "?ask", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap", "?calc"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey]
 
@@ -99,6 +100,14 @@ def act(c,msg,sender,mem):
         except:
             r = "error getting answer"
             #r = "This feature is disabled :("
+
+    ## Calculator
+    elif c == "?calc":
+        equation = msg[msg.find("?calc") + 6:].replace("^", "**")
+        try:
+            r = str(round(eval(equation), 4))
+        except:
+            r = "Is that even math?"
 
     ## Slap
     elif c == "?slap":
