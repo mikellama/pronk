@@ -43,6 +43,7 @@
 import requests, wikipedia
 import urbandictionary as ud
 import mwaaa
+import details
 import random
 from HTMLParser import HTMLParser
 from imdbparser import IMDb
@@ -51,7 +52,7 @@ from imdbparser import IMDb
 ##  Define a list of commands.
 commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap"]
 commands += list(mwaaa.reply.keys())
-commands += ["PRIVMSG "+mwaaa.nick, mwaaa.updateKey]
+commands += ["PRIVMSG "+details.nick, mwaaa.updateKey]
 
 
 
@@ -180,14 +181,12 @@ def act(c,msg,sender,mem):
     elif c == "PRIVMSG "+mwaaa.nick and msg.find("?say") != -1:
         r = msg[msg.find("?say")+5:]
 
-    """
-
-
     ##  Quit.
     if c == "?bye" and sender in details.admins:
         exit(0)
     if c == mwaaa.updateKey:
         reload(mwaaa)
-
+    """
     return r.encode('utf-8')
+
 
