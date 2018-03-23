@@ -105,7 +105,10 @@ def act(c,msg,sender,mem):
     elif c == "?calc":
         equation = msg[msg.find("?calc") + 6:].replace("^", "**")
         try:
-            r = str(round(eval(equation), 4))
+            n = round(eval(equation), 4)
+            if n.is_integer():
+                n = int(n)
+            r = str(n)
         except:
             r = "Is that even math?"
 
