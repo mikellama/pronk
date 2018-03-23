@@ -50,7 +50,7 @@ from imdbparser import IMDb
 
 
 ##  Define a list of commands.
-commands = ["?song", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap"]
+commands = ["?song", "?ask", "?wiki", "?bye", "?ud", "?/", "?imdb", "?coin", "?slap"]
 commands += list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey]
 
@@ -84,6 +84,20 @@ def act(c,msg,sender,mem):
 		r = "I don't hear anything."			
         except:
             r = "not now " + sender
+            #r = "This feature is disabled :("
+
+    ##  get answer from yahoo answers.
+    elif c == "?ask":
+        try:
+            question = msg[msg.find("?ask") + 5:]
+            if len(question) > 1:
+                h = HTMLParser()
+                req = requests.get("http://api.haxed.net/answers/?b&q=" + question)
+                r = h.unescape(req.content)
+	    if len(r) < 3:
+		r = "no answer"			
+        except:
+            r = "error getting answer"
             #r = "This feature is disabled :("
 
     ## Slap
