@@ -53,10 +53,11 @@ sock.connect(("irc.freenode.net", 6667))
 sock.send("USER "+details.username+" 2 3 "+details.username+ "\n")
 sock.send("NICK "+details.nick+"\n")
 
-
-##  Use mwaaa.secret to use the password from the mwaaa.py file.
+## Identify with services
 sock.send("PRIVMSG NickServ :identify "+details.secret+" \n")
 sleep(30)  # finish ident before joining channel
+
+## Join a channel
 sock.send("JOIN "+details.channel+"\n")
 
 
@@ -64,9 +65,8 @@ sock.send("JOIN "+details.channel+"\n")
 msgMem = []
 while True:
     msg = sock.recv(2048)
-    print(msg)
-
     msg = msg.strip("\n\r")
+    
     sender = msg[1:msg.find('!')]
     mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
     msgMem.append(sender +"??"+ msg[mloc:])
