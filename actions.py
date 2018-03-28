@@ -123,9 +123,9 @@ def act(c,msg,sender,mem):
     elif c == "?slap":
         audience = msg[msg.find("?slap") + 6:]
         if len(audience) > 1:
-            r = sender + " slaps themself for the amusement of " + audience
+            r = sender + " slaps him or herself for the amusement of " + audience
         else:
-            r = sender + " slaps themself."
+            r = sender + " slaps him or herself."
 
     ##  Coin Flip
     elif c == "?coin":
