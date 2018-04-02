@@ -173,6 +173,8 @@ def act(c,msg,sender,mem):
                 r += d.definition.replace('\n', ' ').replace('\r', ' ')
         except:
             r = "well that didn't work :/"
+        if r == "":
+            r = "I didn't find anything for '"+query+"'"
 
 
     ##  Wikipedia.
