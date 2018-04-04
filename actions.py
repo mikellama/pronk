@@ -118,7 +118,6 @@ def act(c,msg,sender,mem):
             else:
                 ignoreList.append(person)
                 print(ignoreList)
-            r = "it's done"
 
         ## Calculator
         elif c == "?calc":
