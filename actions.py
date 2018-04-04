@@ -112,6 +112,8 @@ def act(c,msg,sender,mem):
         ## Ignore abusers
         elif c == "?ignore" and sender in details.admins:
             person = msg[msg.find("?ignore") + 8:]
+            if person[-1] == " ":
+                person = person[:-1]
             if person in ignoreList:
                 ignoreList.remove(person)
                 print(ignoreList)
