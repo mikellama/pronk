@@ -106,7 +106,7 @@ def act(c,msg,sender,mem):
                 #r = "This feature is disabled :("
 
         ## List of Commands
-        elif c == "?list":
+        elif c == "?list" and msg[-5:] == "?list":
             r = " ".join(listCommands)
 
         ## Ignore abusers
