@@ -56,7 +56,7 @@ sys.setdefaultencoding('utf8')
 ##  Define a list of commands.
 listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/"]
 commands = listCommands + list(mwaaa.reply.keys())
-commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ignore"]
+commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ignore", "?ftb", "?tb"]
 
 ignoreList = ['spammer']
 
@@ -139,6 +139,16 @@ def act(c,msg,sender,mem):
                 r = sender + " slaps him or herself for the amusement of " + audience
             else:
                 r = sender + " slaps him or herself."
+
+        
+        ## Ted Bundy
+        elif c == "?ftb":
+            ted = msg[msg.find("?ftb") + 5:]
+            r = "Funny thing about " + ted + ": She turned out to be Ted Bundy right after murding someone."
+        elif c == "?tb":
+            ted = msg[msg.find("?tb") + 4:]
+            r = "Funny thing about " + ted + ": He turned out to be Ted Bundy right after murding someone."
+
 
         ##  Coin Flip
         elif c == "?coin":
