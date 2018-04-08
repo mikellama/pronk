@@ -86,7 +86,7 @@ def act(c,msg,sender,mem):
                 h = HTMLParser()
                 r = h.unescape(req.content[29:-9])
 	        if len(r) < 3:
-		    r = "I don't hear anything."			
+		        r = "I don't hear anything."			
             except:
                 r = "not now " + sender
                 #r = "This feature is disabled :("
@@ -99,8 +99,8 @@ def act(c,msg,sender,mem):
                     h = HTMLParser()
                     req = requests.get("http://api.haxed.net/answers/?b&q=" + question)
                     r = h.unescape(req.content)
-	        if len(r) < 3:
-		    r = "no answer"			
+	        if len(r) < 3 or r == "<br />":
+		        r = "Who knows?"			
             except:
                 r = "error getting answer"
                 #r = "This feature is disabled :("
