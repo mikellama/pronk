@@ -144,10 +144,10 @@ def act(c,msg,sender,mem):
         ## Ted Bundy
         elif c == "?ftb":
             ted = msg[msg.find("?ftb") + 5:]
-            r = "Funny thing about " + ted + ": She turned out to be Ted Bundy right after murding someone."
+            r = "Funny thing about " + ted + ": She turned out to be Ted Bundy right after murdering someone."
         elif c == "?tb":
             ted = msg[msg.find("?tb") + 4:]
-            r = "Funny thing about " + ted + ": He turned out to be Ted Bundy right after murding someone."
+            r = "Funny thing about " + ted + ": He turned out to be Ted Bundy right after murdering someone."
 
 
         ##  Coin Flip
