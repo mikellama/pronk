@@ -51,6 +51,7 @@ reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of 
 reply["?help"]           =  "You're on your own."
 reply["?Kremator"]       =  "Booo!"
 reply["?letty"]          =  "All hail letty, our llama queen. She's leet af."
+reply["?mike_check"]     =  "My daddy! :)"
 reply["?mikez"]          =  "My daddy! :)"
 reply["?more"]           =  "No! No more!"
 reply["?mwaaa"]          =  "That's llama speak."
