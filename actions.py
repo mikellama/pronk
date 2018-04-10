@@ -54,7 +54,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/", "?s/"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ignore", "?ftb", "?tb"]
 
@@ -184,8 +184,36 @@ def act(c,msg,sender,mem):
                             r = "\x02"+sender+'\x02 thinks ' + r
                         return r
             except:
-	        r = "well that didn't work :/"
+	            r = "well that didn't work :/"
 
+        elif c == "?s/" and msg.find(" :?s/") > 1:
+            if msg[-1] == '/':
+                msg = msg[:-1]
+            mfull = msg[msg.find("?s/")+3:]
+            mbad = mfull[:mfull.find("/")]
+            mgood = '\x02' + mfull[mfull.find("/")+1:] + '\x02'
+            try:
+                for m in reversed(mem[:-1]):
+                    if m.find(mbad) != -1 and m.find("?s/") == -1 and m[:m.find("??")] == sender:   
+                        
+                        mes = m[len(sender)+2:]
+                        if mes.startswith("\x01ACTION"): # /me
+                            mes = mes[8:-1]
+                            action = True
+                        else:
+                            action = False
+                        preBad = mes[:mes.find(mbad)]
+                        postBad = mes[mes.find(mbad)+len(mbad):]
+                        fixed = preBad + mgood + postBad
+                        if action:
+                            fixed = "* \x02"+sender+"\x02 "+fixed
+                        else:
+                            fixed = '"'+fixed+'"'
+                        r = "\x02"+sender+"\x02 meant: " +fixed
+
+                        return r
+            except:
+	            r = "well that didn't work :/"
 
         ##  Urban Dictionary.
         elif c == "?ud":
