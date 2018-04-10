@@ -44,6 +44,7 @@ updateKey = "?update"      # the command for updating the bot
 ##  The reply ["?foo"] list below, defines a list of replies for preset commands.
 ##  They can be used for comedic effect.
 reply = dict()           #   <--- create the reply dictionary
+reply["?allicat"]        =  "In the ally lurks a cat. MEEEEOOOOOWWW."
 reply["?duckgoose"]      =  "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
 reply["?fChanX"]         =  "The most lovable llama <3"
 reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of people on IRC"
