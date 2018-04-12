@@ -48,17 +48,40 @@ import details
 import random
 from HTMLParser import HTMLParser
 from imdbparser import IMDb
-import sys 
+import sys
+import pickle
+import os.path
+import re
+from collections import defaultdict
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?/", "?s/"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results"]
 commands = listCommands + list(mwaaa.reply.keys())
-commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ignore", "?ftb", "?tb"]
+commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
+commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
 
-ignoreList = ['spammer']
+yesNo = ["yes", "no", "y", "n"]
+
+def saveStatus():
+    with open('llamaStatus.pkl', 'w') as f:
+        pickle.dump([ignoreList, pollList], f)
+
+def readStatus():
+    with open('llamaStatus.pkl', 'r') as f:
+        return pickle.load(f)
+
+
+if os.path.isfile('llamaStatus.pkl') == False:
+    print('creating new llamaStatus.pkl file')
+    ignoreList = ['spammer']
+    pollList = []
+    saveStatus()
+else:
+    ignoreList, pollList = readStatus()
+
 
 def act(c,msg,sender,mem):
     '''
@@ -78,7 +101,6 @@ def act(c,msg,sender,mem):
         if c in mwaaa.reply:
             r = mwaaa.reply[c]
 
-
         ##  Song.
         elif c == "?song":
             try:
@@ -90,6 +112,82 @@ def act(c,msg,sender,mem):
             except:
                 r = "not now " + sender
                 #r = "This feature is disabled :("
+        
+        ## Print Stuff
+        elif c == "?print":
+            print(pollList)
+
+        ## Poll
+        elif c == "?poll":
+            poll = msg[msg.find("?poll") + 6:]
+            if poll.find("close #") != -1:
+                # close and send results if starter or admin
+                pass
+
+            elif poll.find("remove") != -1 and sender in details.admins:
+                # if starter or admin, remove poll
+                try:                
+                    l = poll.find("remove") + 6
+                    pollNum = poll[l:l+2]
+                    n = int(pollNum)
+                    pollList.pop(n-1)
+                except:
+                    r = "aint no poll #" + pollNum
+
+            elif len(poll) > 1:
+                #create new poll
+                pollList.append([poll, sender, {}])
+                n = len(pollList)
+                r = "new poll created #" + str(n)
+            else:
+                # display active polls (maybe)
+                pass
+        
+        ## Vote
+        elif c == "?vote":
+            m = msg[msg.find("?vote") + 5:]
+            try:
+                n = re.search(r'\d+', m).group()
+                if m.replace("#","").find(n) > 1:
+                    r = 'which number poll?'
+                else:
+                    pollNum = int(n)-1
+                    if pollNum < 0 or pollNum >= len(pollList):
+                        r = "#" + n + " is not an active poll"
+                    else:
+                        if len(m[m.find(n) + len(n):]) == 0:
+                            r = "but what is your vote?"
+                        else:
+                            vote = m[m.find(n) + len(n) + 1:]
+                            if vote[-1] == " ":
+                                vote = vote[:-1]
+                            voteDict = pollList[pollNum][2]
+                            voteDict[sender] = vote 
+
+            except:
+                r = 'but, which number poll?'
+            saveStatus()
+        
+        ## Poll Results
+        elif c == "?results":
+            m = msg[msg.find("?results") + 8:]
+            try:
+                n = re.search(r'\d+', m).group()
+                pollNum = int(n)-1
+                if len(pollList) < int(n):
+                    r = "There is no poll #" + str(n)
+                else:
+                    voteDict = pollList[pollNum][2]
+                    countDict = defaultdict(int)
+                    for key, value in voteDict.iteritems():
+                        countDict[value] += 1
+                    r += pollList[pollNum][0] + " -- "
+                    for key, value in countDict.iteritems():
+                        r += str(key)+":"+str(value)+", "
+                    r = r[:-2]
+            except:
+                print('?results failure')
+            
 
         ##  get answer from yahoo answers.
         elif c == "?ask":
@@ -108,18 +206,6 @@ def act(c,msg,sender,mem):
         ## List of Commands
         elif c == "?list" and msg[-5:] == "?list":
             r = " ".join(listCommands)
-
-        ## Ignore abusers
-        elif c == "?ignore" and sender in details.admins:
-            person = msg[msg.find("?ignore") + 8:]
-            if person[-1] == " ":
-                person = person[:-1]
-            if person in ignoreList:
-                ignoreList.remove(person)
-                print(ignoreList)
-            else:
-                ignoreList.append(person)
-                print(ignoreList)
 
         ## Calculator
         elif c == "?calc":
@@ -157,6 +243,8 @@ def act(c,msg,sender,mem):
 
         ##  Text replacement.
         elif c == "?/" and msg.find(" :?/") > 1:
+            r = "that feature is disabled"
+            """ 
             if msg[-1] == '/':
                 msg = msg[:-1]
             mfull = msg[msg.find("?/")+2:]
@@ -185,8 +273,10 @@ def act(c,msg,sender,mem):
                         return r
             except:
 	            r = "well that didn't work :/"
-
+            """
         elif c == "?s/" and msg.find(" :?s/") > 1:
+            r = "that feature is disabled"
+            """            
             if msg[-1] == '/':
                 msg = msg[:-1]
             mfull = msg[msg.find("?s/")+3:]
@@ -214,7 +304,7 @@ def act(c,msg,sender,mem):
                         return r
             except:
 	            r = "well that didn't work :/"
-
+            """
         ##  Urban Dictionary.
         elif c == "?ud":
             try:
@@ -257,7 +347,33 @@ def act(c,msg,sender,mem):
 		    r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+movie.plot
 	    except:
 	        r = "something went wrong :/"
+        
+        ### ADMIN FEATURES
+        ## Save Status and exit
+        elif c == "?bye" and sender in details.admins:
+            print('goodbye')            
+            saveStatus()
+            exit(0)
 
+        ## Ignore abusers
+        elif c == "?ignore" and sender in details.admins:
+            person = msg[msg.find("?ignore") + 8:]
+            if person[-1] == " ":
+                person = person[:-1]
+            if person in ignoreList:
+                ignoreList.remove(person)
+                print(ignoreList)
+            else:
+                ignoreList.append(person)
+                print(ignoreList)
+        ##  Save Status
+        elif c == "?save" and sender in details.admins:
+            print('status saved to llamaStatus.pkl')
+            saveStatus()
+
+        ## Send Ignore List
+        elif c == "?ignoring" and sender in details.admins:
+            r = ' '.join(ignoreList)
 
     return r.encode('utf-8')
 

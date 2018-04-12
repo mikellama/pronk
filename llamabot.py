@@ -74,7 +74,6 @@ while True:
     if len(msgMem) > 20:
         msgMem.pop(0)
 
-
     ##  If you receive a /PING send a response.
     if msg.find("PING :") != -1:
         sock.send("PONG :pingis\n")
@@ -85,18 +84,20 @@ while True:
         print("update complete")
         reload(actions)
         reload(mwaaa)
+        reload(details)
 
 
     for command in actions.commands:
         msgLow = msg.lower()
         if msgLow.find(command.lower()) != -1:
             r = actions.act(command, msg, sender, msgMem)
-            try:
-                target = msg.split(' ')[2]
-                if target.lstrip('@+').startswith('#'):
-                    sock.send("PRIVMSG "+target+" :"+r+"\n")
-                else:
-                    sock.send("PRIVMSG "+sender+" :"+r+"\n")
-            except IndexError:
-                pass
+            if len(r) > 0:
+                try:
+                    target = msg.split(' ')[2]
+                    if target.lstrip('@+').startswith('#'):
+                        sock.send("PRIVMSG "+target+" :"+r+"\n")
+                    else:
+                        sock.send("PRIVMSG "+sender+" :"+r+"\n")
+                except IndexError:
+                    pass
 
