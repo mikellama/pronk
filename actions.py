@@ -243,8 +243,7 @@ def act(c,msg,sender,mem):
 
         ##  Text replacement.
         elif c == "?/" and msg.find(" :?/") > 1:
-            r = "that feature is disabled"
-            """ 
+            #r = "that feature is disabled"
             if msg[-1] == '/':
                 msg = msg[:-1]
             mfull = msg[msg.find("?/")+2:]
@@ -273,10 +272,9 @@ def act(c,msg,sender,mem):
                         return r
             except:
 	            r = "well that didn't work :/"
-            """
+            
         elif c == "?s/" and msg.find(" :?s/") > 1:
-            r = "that feature is disabled"
-            """            
+            #r = "that feature is disabled"          
             if msg[-1] == '/':
                 msg = msg[:-1]
             mfull = msg[msg.find("?s/")+3:]
@@ -304,7 +302,7 @@ def act(c,msg,sender,mem):
                         return r
             except:
 	            r = "well that didn't work :/"
-            """
+        
         ##  Urban Dictionary.
         elif c == "?ud":
             try:
