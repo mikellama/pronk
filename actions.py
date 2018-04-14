@@ -197,7 +197,7 @@ def act(c,msg,sender,mem):
                     h = HTMLParser()
                     req = requests.get("http://api.haxed.net/answers/?b&q=" + question)
                     r = h.unescape(req.content)
-	        if len(r) < 3 or r == "<br />":
+	        if len(r) < 3 or r.find("<br />") >= 0:
 		        r = "Who knows?"			
             except:
                 r = "error getting answer"
