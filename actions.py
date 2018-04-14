@@ -318,16 +318,19 @@ def act(c,msg,sender,mem):
 
         ##  Wikipedia.
         elif c == "?wiki":
-            try:
-                query = msg[msg.find("?wiki") + 6:]
-                r = wikipedia.summary(query, sentences=3)
-            except wikipedia.exceptions.DisambiguationError as e:
-                optionCount = min(len(e.options), 14)
-                for c, value in enumerate(e.options[:optionCount-1]):
-                    r += value+", "
-                r+= "or " +e.options[optionCount-1]+ "?"
-            except wikipedia.exceptions.PageError as e2:
-                r = "Didn't find anything"
+            query = msg[msg.find("?wiki") + 6:]
+            if len(query) > 1:
+                try:
+                    r = wikipedia.summary(query, sentences=3)
+                except wikipedia.exceptions.DisambiguationError as e:
+                    optionCount = min(len(e.options), 14)
+                    for c, value in enumerate(e.options[:optionCount-1]):
+                        r += value+", "
+                    r+= "or " +e.options[optionCount-1]+ "?"
+                except wikipedia.exceptions.PageError as e2:
+                    r = "Didn't find anything"
+            else:
+                r = "look up what?"
 
 
         ##  IMDb.
