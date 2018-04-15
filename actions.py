@@ -109,6 +109,8 @@ def act(c,msg,sender,mem):
                 h = HTMLParser()
                 r = h.unescape(req.content[29:-9])
                 response = urllib2.urlopen("http://letty.tk/likes.txt")
+                #response = urllib2.urlopen("http://llamas.haxed.net/letty.tk/likes.txt")
+                #r = "Willie Campbell & The Open Day Rotation - Winter Late In Spring"                
                 songList = []
                 
                 cr = csv.reader(response, delimiter="|")
@@ -127,10 +129,12 @@ def act(c,msg,sender,mem):
                 if likes > 0 or dislikes > 0:
                     r += " ["                    
                     if likes > 0:
-                        r += " +" + str(likes)
+                        r += "+" + str(likes)
+                        if dislikes > 0:
+                            r += " "
                     if dislikes > 0:
-                        r += " -" + str(dislikes)
-                    r += " ]"                  
+                        r += "-" + str(dislikes)
+                    r += "]"                  
                 
 	        if len(r) < 3:
 		        r = "I don't hear anything."			
