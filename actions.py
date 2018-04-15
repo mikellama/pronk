@@ -269,6 +269,12 @@ def act(c,msg,sender,mem):
         elif c == "?coin":
             r = random.sample(["heads", "tails"], 1)
             r = r[0]
+		
+	
+        ##  Dice
+        elif c == "?dice":
+            r = random.sample(["You rolled a one.", "You rolled a two.", "You rolled a three.", "You rolled a four.", "You rolled a five.", "You rolled a six."], 1)
+            r = r[0]
 
         ##  Text replacement.
         elif c == "?/" and msg.find(" :?/") > 1:
