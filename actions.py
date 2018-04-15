@@ -42,6 +42,7 @@
 ##  Import the files required for this to work.
 from __future__ import division
 import requests, wikipedia
+import csv, urllib2
 import urbandictionary as ud
 import mwaaa
 import details
@@ -107,6 +108,30 @@ def act(c,msg,sender,mem):
                 req = requests.get("http://letty.tk:8000/rds-xml.xsl")
                 h = HTMLParser()
                 r = h.unescape(req.content[29:-9])
+                response = urllib2.urlopen("http://letty.tk/likes.txt")
+                songList = []
+                
+                cr = csv.reader(response, delimiter="|")
+                for row in cr:
+                    songList.append([row[2],row[4]])
+                
+                likes = 0
+                dislikes = 0
+                
+                for song in songList:
+                    if song[1] == r:
+                        if song[0] == "like":
+                            likes += 1
+                        else:
+                            dislikes += 1
+                if likes > 0 or dislikes > 0:
+                    r += " ["                    
+                    if likes > 0:
+                        r += " +" + str(likes)
+                    if dislikes > 0:
+                        r += " -" + str(dislikes)
+                    r += " ]"                  
+                
 	        if len(r) < 3:
 		        r = "I don't hear anything."			
             except:
