@@ -270,7 +270,6 @@ def act(c,msg,sender,mem):
             r = random.sample(["heads", "tails"], 1)
             r = r[0]
 		
-	
         ##  Dice
         elif c == "?dice":
             r = random.sample(["You rolled a one.", "You rolled a two.", "You rolled a three.", "You rolled a four.", "You rolled a five.", "You rolled a six."], 1)
