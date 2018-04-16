@@ -272,8 +272,8 @@ def act(c,msg,sender,mem):
 		
         ##  Dice
         elif c == "?roll":
-            r = random.sample(["you rolled a 1", "you rolled a 2", "you rolled a 3", "you rolled a 4", "you rolled a 5", "you rolled a 6"], 1)
-            r =  r[0]
+            r = "you rolled a "
+            r += random.sample(["1", "2", "3", "4", "5", "6"], 1)[0]
 		
         ##  Text replacement.
         elif c == "?/" and msg.find(" :?/") > 1:
