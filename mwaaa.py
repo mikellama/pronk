@@ -62,11 +62,12 @@ reply["?pronk"]          =  "Who me? llamabot by mikellama, https://github.com/m
 reply["?radio"]          =  "http://letty.tk/"
 reply["?Roserin"]        =  "?Hm yes."
 reply["?shantaram3013"]  =  "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
-reply["?Taco"]           =  "Im yummy! Gobble me up in a hurry and go to taco heaven!"
+reply["?DetectiveTaco"]  =  "Im yummy! Gobble me up in a hurry and go to taco heaven!"
 reply["?Time-Warp"]      =  "OH NOZ!"
 reply["?website"]        =  "http://llamas.haxed.net"
 reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
 reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
 reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
+reply["?Mumble"]         =  "m.haxed.net Port: 64738"
 
