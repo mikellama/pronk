@@ -59,7 +59,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results", "?roll"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
@@ -271,7 +271,7 @@ def act(c,msg,sender,mem):
             r = r[0]
 		
         ##  Dice
-        elif c == "?dice":
+        elif c == "?roll":
             r = random.sample(["You rolled a one.", "You rolled a two.", "You rolled a three.", "You rolled a four.", "You rolled a five.", "You rolled a six."], 1)
             r = r[0]
 
