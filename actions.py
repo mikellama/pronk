@@ -272,7 +272,7 @@ def act(c,msg,sender,mem):
 		
         ##  Dice
         elif c == "?roll":
-            r = random.sample(["You rolled a one.", "You rolled a two.", "You rolled a three.", "You rolled a four.", "You rolled a five.", "You rolled a six."], 1)
+            r = random.sample(["you rolled a 1", "you rolled a 2", "you rolled a 3", "you rolled a 4", "you rolled a 5", "you rolled a 6"], 1)
             r = r[0]
 
         ##  Text replacement.
