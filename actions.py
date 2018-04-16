@@ -65,6 +65,8 @@ commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
 
 yesNo = ["yes", "no", "y", "n"]
+currentSong = "It Will Never Be This"
+shutUp = False
 
 def saveStatus():
     with open('llamaStatus.pkl', 'w') as f:
@@ -104,43 +106,54 @@ def act(c,msg,sender,mem):
 
         ##  Song.
         elif c == "?song":
+            global currentSong
+            global shutUp
             try:
                 req = requests.get("http://letty.tk:8000/rds-xml.xsl")
                 h = HTMLParser()
                 r = h.unescape(req.content[29:-9])
-                response = urllib2.urlopen("http://letty.tk/likes.txt")
-                #response = urllib2.urlopen("http://llamas.haxed.net/letty.tk/likes.txt")
-                #r = "Willie Campbell & The Open Day Rotation - Winter Late In Spring"                
-                songList = []
                 
-                cr = csv.reader(response, delimiter="|")
-                for row in cr:
-                    songList.append([row[2],row[4]])
-                
-                likes = 0
-                dislikes = 0
-                
-                for song in songList:
-                    if song[1] == r:
-                        if song[0] == "like":
-                            likes += 1
-                        else:
-                            dislikes += 1
-                if likes > 0 or dislikes > 0:
-                    r += " ["                    
-                    if likes > 0:
-                        r += "+" + str(likes)
+                if r != currentSong:
+                    shutUp = False
+                    
+                if shutUp == True:
+                    r = ""
+                elif r == currentSong:
+                    r = "it's still the same song"
+                    shutUp = True
+                else:
+                    shutUp = False
+                    currentSong = r
+                    response = urllib2.urlopen("http://letty.tk/likes.txt")              
+                    songList = []
+                    
+                    cr = csv.reader(response, delimiter="|")
+                    for row in cr:
+                        songList.append([row[2],row[4]])
+                    
+                    likes = 0
+                    dislikes = 0
+                    
+                    for song in songList:
+                        if song[1] == r:
+                            if song[0] == "like":
+                                likes += 1
+                            else:
+                                dislikes += 1
+                    if likes > 0 or dislikes > 0:
+                        r += " ["                    
+                        if likes > 0:
+                            r += "+" + str(likes)
+                            if dislikes > 0:
+                                r += " "
                         if dislikes > 0:
-                            r += " "
-                    if dislikes > 0:
-                        r += "-" + str(dislikes)
-                    r += "]"                  
+                            r += "-" + str(dislikes)
+                        r += "]"                  
                 
-	        if len(r) < 3:
-		        r = "I don't hear anything."			
+                    if len(r) < 3:
+	                    r = "I don't hear anything."			
             except:
                 r = "not now " + sender
-                #r = "This feature is disabled :("
         
         ## Print Stuff
         elif c == "?print":
