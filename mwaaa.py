@@ -69,5 +69,5 @@ reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!
 reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
 reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
-reply["?Mumble"]         =  "m.haxed.net Port: 64738"
+reply["?Mumble"]         =  "m.haxed.net; Port: 64738"
 
