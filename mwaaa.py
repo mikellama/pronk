@@ -70,4 +70,6 @@ reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
 reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
 reply["?Mumble"]         =  "m.haxed.net; Port: 64738"
-reply["?chanstats"]         =  "http://haxed.net:8880"
+reply["?diogenese"]      =  "?"
+reply["?stats"]         =  "http://haxed.net:8880"
+
