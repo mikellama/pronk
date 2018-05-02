@@ -73,5 +73,5 @@ reply["?Mumble"]         =  "m.haxed.net; Port: 64738"
 reply["?diogenese"]      =  "?"
 reply["?stats"]          =  "http://haxed.net:8880"
 reply["?stream"]         =  "http://letty.tk:8000/stream"
-
+reply["?hfl"]            =  "Hooray For Lettyisms!"
 
