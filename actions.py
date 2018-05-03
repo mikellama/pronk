@@ -385,16 +385,17 @@ def act(c,msg,sender,mem):
             imdb = IMDb()
             title = msg[msg.find("?imdb") + 6:]
             try:
-	        searchResult = imdb.search_movie(title)
-	        searchResult.fetch()
-	        movie = searchResult.results[0]
-	        movie.fetch()
-	        if len(searchResult.results) < 1:
-		    r = "I didn't find anything"
-	        else:
-		    r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+movie.plot
-	    except:
-	        r = "something went wrong :/"
+	            searchResult = imdb.search_movie(title)
+	            searchResult.fetch()
+	            movie = searchResult.results[0]
+	            movie.fetch()
+	            if len(searchResult.results) < 1:
+		            r = "I didn't find anything"
+	            else:
+		            r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+str(movie.description)
+
+            except:
+	            r = "something went wrong :/"
         
         ### ADMIN FEATURES
         ## Save Status and exit
