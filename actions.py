@@ -392,7 +392,7 @@ def act(c,msg,sender,mem):
 	            if len(searchResult.results) < 1:
 		            r = "I didn't find anything"
 	            else:
-		            r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+str(movie.description)
+		            r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+str(movie.plot)
 
             except:
 	            r = "something went wrong :/"
