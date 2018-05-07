@@ -63,8 +63,16 @@ sock.send("JOIN "+details.channel+"\n")
 
 ##  Instantiate message buffer.
 msgMem = []
+
 while True:
     msg = sock.recv(2048)
+    print(msg)
+
+    ## If kicked, rejoin
+    if msg.find("KICK ##llamas "+details.nick+" :flood"):
+        sleep(5)
+        sock.send("JOIN "+details.channel+"\n")
+
     msg = msg.strip("\n\r")
     
     sender = msg[1:msg.find('!')]
