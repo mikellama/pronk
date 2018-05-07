@@ -66,7 +66,7 @@ msgMem = []
 
 while True:
     msg = sock.recv(2048)
-    print(msg)
+    #print(msg)
 
     ## If kicked, rejoin
     if msg.find("KICK ##llamas "+details.nick+" :flood"):
