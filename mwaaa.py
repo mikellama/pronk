@@ -46,7 +46,7 @@ updateKey = "?update"      # the command for updating the bot
 reply = dict()           #   <--- create the reply dictionary
 reply["?allicat"]        =  "In the ally lurks a cat. MEEEEOOOOOWWW."
 reply["?duckgoose"]      =  "The coolest duck/goose hybrid around. He's so perfect, words can't describe his awesomeness."
-reply["?fChanX"]         =  "The most lovable llama <3"
+reply["?fChanX"]         =  "The most lovable llama <333"
 reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of people on IRC"
 reply["?help"]           =  "You're on your own."
 reply["?Kremator"]       =  "Booo!"
@@ -63,15 +63,18 @@ reply["?radio"]          =  "http://letty.tk/"
 reply["?Roserin"]        =  "?Hm yes."
 reply["?shantaram3013"]  =  "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
 reply["?DetectiveTaco"]  =  "Im yummy! Gobble me up in a hurry and go to taco heaven!"
-reply["?Time-Warp"]      =  "OH NOZ!"
+reply["?Time-Warp"]      =  "TIZ TEH TIME-WARP! SPOTTED O_O"
 reply["?website"]        =  "http://llamas.haxed.net"
 reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here, as long as we respect the wishes of the owner of this channel."
 reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
 reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
 reply["?Mumble"]         =  "m.haxed.net; Port: 64738"
-reply["?diogenese"]      =  "?"
+reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougars can be."
 reply["?stats"]          =  "http://haxed.net:8880"
 reply["?stream"]         =  "http://letty.tk:8000/stream"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
+
+
+
 
