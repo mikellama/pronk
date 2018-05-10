@@ -66,13 +66,6 @@ msgMem = []
 
 while True:
     msg = sock.recv(2048)
-    #print(msg)
-
-    ## If kicked, rejoin
-    if msg.find("KICK ##llamas "+details.nick+" :flood"):
-        sleep(5)
-        sock.send("JOIN "+details.channel+"\n")
-
     msg = msg.strip("\n\r")
     
     sender = msg[1:msg.find('!')]
@@ -86,14 +79,12 @@ while True:
     if msg.find("PING :") != -1:
         sock.send("PONG :pingis\n")
 
-
     ##  If you find the update key defined in mwaaa.py, print 'update complete' and reload actions.py and mwaaa.py
     if msg.find(mwaaa.updateKey) != -1:
         print("update complete")
         reload(actions)
         reload(mwaaa)
         reload(details)
-
 
     for command in actions.commands:
         msgLow = msg.lower()
