@@ -71,7 +71,7 @@ reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
 reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama."
 reply["?Mumble"]         =  "m.haxed.net; Port: 64738"
 reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougars can be."
-reply["?stats"]          =  "hhttp://llamas.haxed.net:8880/%23llamas/top/total/words/"
+reply["?stats"]          =  "http://llamas.haxed.net:8880/%23llamas/top/total/words/"
 reply["?stream"]         =  "http://letty.tk:8000/stream"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
 
