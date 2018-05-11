@@ -124,6 +124,7 @@ def act(c,msg,sender,mem):
                 else:
                     shutUp = False
                     currentSong = r
+                    '''
                     response = urllib2.urlopen("http://letty.tk/likes.txt")              
                     songList = []
                     
@@ -149,7 +150,7 @@ def act(c,msg,sender,mem):
                         if dislikes > 0:
                             r += "-" + str(dislikes)
                         r += "]"                  
-                
+                    '''
                     if len(r) < 3:
 	                    r = "I don't hear anything."			
             except:
