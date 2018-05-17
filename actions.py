@@ -166,7 +166,7 @@ def act(c,msg,sender,mem):
 
         ## Dictionary
         elif c == "?dict":
-            words = msg[msg.find("?dict")+6:].split()
+            words = msg[msg.find("?dict")+6:].lower().split()
             if len(words) > 2:
                 r = "?dict <word> [partOfSpeech]"
             elif len(words) == 2:
