@@ -54,12 +54,13 @@ import pickle
 import os.path
 import re
 from collections import defaultdict
+from wordnik import *
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results", "?roll"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results", "?roll", "?dict"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
@@ -67,6 +68,9 @@ commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
 yesNo = ["yes", "no", "y", "n"]
 currentSong = "It Will Never Be This"
 shutUp = False
+
+client = swagger.ApiClient(details.wnAPI_key, "http://api.wordnik.com/v4")
+wordApi = WordApi.WordApi(client)
 
 def saveStatus():
     with open('llamaStatus.pkl', 'w') as f:
@@ -160,6 +164,26 @@ def act(c,msg,sender,mem):
         elif c == "?print":
             print(pollList)
 
+        ## Dictionary
+        elif c == "?dict":
+            words = msg[msg.find("?dict")+6:].split()
+            if len(words) > 2:
+                r = "?dict <word> [partOfSpeech]"
+            elif len(words) == 2:
+                definitions = wordApi.getDefinitions(words[0],
+                                     partOfSpeech=words[1],
+                                     sourceDictionaries='wiktionary')
+                if definitions != None:
+                    r = "[" + definitions[0].partOfSpeech + "] "+definitions[0].text
+                else:
+                    r = "["+words[1]+"] *"+words[0]+"* not found in wiktionary"
+            else:
+                definitions = wordApi.getDefinitions(words[0],
+                                     sourceDictionaries='wiktionary')
+                if definitions != None:
+                    r = "[" + definitions[0].partOfSpeech + "] "+definitions[0].text
+                else:
+                    r = "*"+words[0]+"* not found in wiktionary"                 
         ## Poll
         elif c == "?poll":
             poll = msg[msg.find("?poll") + 6:]
@@ -408,7 +432,9 @@ def act(c,msg,sender,mem):
         ## Ignore abusers
         elif c == "?ignore" and sender in details.admins:
             person = msg[msg.find("?ignore") + 8:]
-            if person[-1] == " ":
+            if len(person) == 0:
+                pass
+            elif person[-1] == " ":
                 person = person[:-1]
             if person in ignoreList:
                 ignoreList.remove(person)
