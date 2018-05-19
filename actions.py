@@ -172,18 +172,18 @@ def act(c,msg,sender,mem):
             elif len(words) == 2:
                 definitions = wordApi.getDefinitions(words[0],
                                      partOfSpeech=words[1],
-                                     sourceDictionaries='wiktionary')
+                                     sourceDictionaries='ahd-legacy')
                 if definitions != None:
                     r = "[" + definitions[0].partOfSpeech + "] "+definitions[0].text
                 else:
-                    r = "["+words[1]+"] *"+words[0]+"* not found in wiktionary"
+                    r = "["+words[1]+"] *"+words[0]+"* not found in dictionary"
             else:
                 definitions = wordApi.getDefinitions(words[0],
-                                     sourceDictionaries='wiktionary')
+                                     sourceDictionaries='ahd-legacy')
                 if definitions != None:
                     r = "[" + definitions[0].partOfSpeech + "] "+definitions[0].text
                 else:
-                    r = "*"+words[0]+"* not found in wiktionary"                 
+                    r = "*"+words[0]+"* not found in dictionary"                 
         ## Poll
         elif c == "?poll":
             poll = msg[msg.find("?poll") + 6:]
