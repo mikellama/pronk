@@ -284,8 +284,7 @@ def act(c,msg,sender,mem):
                 r = str(n)
             except:
                 r = "Is that even math?"
-
-"""
+        
         ## Slap
         elif c == "?slap":
             audience = msg[msg.find("?slap") + 6:]
@@ -293,8 +292,7 @@ def act(c,msg,sender,mem):
                 r = sender + " slaps him or herself for the amusement of " + audience
             else:
                 r = sender + " slaps him or herself."
-
-"""        
+        
         ## Ted Bundy
         elif c == "?ftb":
             ted = msg[msg.find("?ftb") + 5:]
