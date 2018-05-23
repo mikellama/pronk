@@ -100,9 +100,4 @@ while True:
                 except IndexError:
                     pass
 
-    ## If kicked, rejoin
-    if msg.find("KICK "+details.channel+" "+details.nick+" :flood"):
-        sleep(5)
-        sock.send("JOIN "+details.channel+"\n")
-
 

@@ -60,10 +60,10 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?slap", "?calc", "?poll", "?vote", "?results", "?roll", "?dict"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
-commands += ["?ignore", "?save", "?bye", "?ignoring", "?/", "?s/", "?print"]
+commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
 
 yesNo = ["yes", "no", "y", "n"]
 currentSong = "It Will Never Be This"
@@ -285,6 +285,7 @@ def act(c,msg,sender,mem):
             except:
                 r = "Is that even math?"
 
+"""
         ## Slap
         elif c == "?slap":
             audience = msg[msg.find("?slap") + 6:]
@@ -293,7 +294,7 @@ def act(c,msg,sender,mem):
             else:
                 r = sender + " slaps him or herself."
 
-        
+"""        
         ## Ted Bundy
         elif c == "?ftb":
             ted = msg[msg.find("?ftb") + 5:]
@@ -313,68 +314,6 @@ def act(c,msg,sender,mem):
             r = "you rolled a "
             r += random.sample(["1", "2", "3", "4", "5", "6"], 1)[0]
 		
-        ##  Text replacement.
-        elif c == "?/" and msg.find(" :?/") > 1:
-            #r = "that feature is disabled"
-            if msg[-1] == '/':
-                msg = msg[:-1]
-            mfull = msg[msg.find("?/")+2:]
-            mbad = mfull[:mfull.find("/")]
-            mgood = '\x02' + mfull[mfull.find("/")+1:] + '\x02'
-            try:
-                for m in reversed(mem[:-1]):
-                    if m.find(mbad) != -1 and m.find("?/") == -1:   
-                        oldSender = m[:m.find("??")]
-                        mes = m[len(oldSender)+2:]
-                        if mes.startswith("\x01ACTION"): # /me
-                            mes = mes[8:-1]
-                            action = True
-                        else:
-                            action = False
-                        preBad = mes[:mes.find(mbad)]
-                        postBad = mes[mes.find(mbad)+len(mbad):]
-                        fixed = preBad + mgood + postBad
-                        if action:
-                            fixed = "* \x02"+oldSender+"\x02 "+fixed
-                        else:
-                            fixed = '"'+fixed+'"'
-                        r = "\x02"+oldSender+"\x02 meant: " +fixed
-                        if sender != oldSender:
-                            r = "\x02"+sender+'\x02 thinks ' + r
-                        return r
-            except:
-	            r = "well that didn't work :/"
-            
-        elif c == "?s/" and msg.find(" :?s/") > 1:
-            #r = "that feature is disabled"          
-            if msg[-1] == '/':
-                msg = msg[:-1]
-            mfull = msg[msg.find("?s/")+3:]
-            mbad = mfull[:mfull.find("/")]
-            mgood = '\x02' + mfull[mfull.find("/")+1:] + '\x02'
-            try:
-                for m in reversed(mem[:-1]):
-                    if m.find(mbad) != -1 and m.find("?s/") == -1 and m[:m.find("??")] == sender:   
-                        
-                        mes = m[len(sender)+2:]
-                        if mes.startswith("\x01ACTION"): # /me
-                            mes = mes[8:-1]
-                            action = True
-                        else:
-                            action = False
-                        preBad = mes[:mes.find(mbad)]
-                        postBad = mes[mes.find(mbad)+len(mbad):]
-                        fixed = preBad + mgood + postBad
-                        if action:
-                            fixed = "* \x02"+sender+"\x02 "+fixed
-                        else:
-                            fixed = '"'+fixed+'"'
-                        r = "\x02"+sender+"\x02 meant: " +fixed
-
-                        return r
-            except:
-	            r = "well that didn't work :/"
-        
         ##  Urban Dictionary.
         elif c == "?ud":
             try:
