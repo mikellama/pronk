@@ -55,6 +55,7 @@ import os.path
 import re
 from collections import defaultdict
 from wordnik import *
+from bs4 import BeautifulSoup
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -64,6 +65,7 @@ listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?po
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
+commands += ["youtube.com/watch?"]
 
 yesNo = ["yes", "no", "y", "n"]
 currentSong = "It Will Never Be This"
@@ -160,6 +162,24 @@ def act(c,msg,sender,mem):
             except:
                 r = "not now " + sender
         
+        elif c == "youtube.com/watch?":
+            linkStart = msg.find("youtube.com/watch?")
+            linkEnd = msg[linkStart:].find(" ") + linkStart + 1
+            url = "https://www."
+            if linkEnd == linkStart: #no space after URL
+                url += msg[linkStart:]
+            else: 
+                url += msg[linkStart:linkEnd]
+
+            page = requests.get(url)
+
+            soup = BeautifulSoup(page.text, "lxml")
+
+            t = soup.title.text[:-10]
+            v = soup.find("div", {"class": "watch-view-count"}).text
+
+            r = t + " :: " + v
+
         ## Print Stuff
         elif c == "?print":
             print(pollList)
