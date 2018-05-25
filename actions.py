@@ -56,6 +56,7 @@ import re
 from collections import defaultdict
 from wordnik import *
 from bs4 import BeautifulSoup
+import json
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -115,16 +116,19 @@ def act(c,msg,sender,mem):
             global currentSong
             global shutUp
             try:
-                req = requests.get("http://letty.tk:8000/rds-xml.xsl")
-                h = HTMLParser()
-                r = h.unescape(req.content[29:-9])
+                req = requests.get("http://letty.tk:8000/status-json.xsl")
+
+                j = json.loads(req.text)
+                l = str(j["icestats"]["source"]["listeners"])
+                t = j["icestats"]["source"]["title"]
+                r = t + " -- " + l + " listeners"
                 
                 if r != currentSong:
                     shutUp = False
                     
                 if shutUp == True:
                     r = ""
-                elif r == currentSong:
+                elif r == currentSong and sender not in details.admins:
                     r = "it's still the same song"
                     shutUp = True
                 else:
@@ -176,9 +180,11 @@ def act(c,msg,sender,mem):
             soup = BeautifulSoup(page.text, "lxml")
 
             t = soup.title.text[:-10]
-            v = soup.find("div", {"class": "watch-view-count"}).text
-
-            r = t + " :: " + v
+            try:
+                v = soup.find("div", {"class": "watch-view-count"}).text
+                r = t + " :: " + v
+            except:
+                r = t
 
         ## Print Stuff
         elif c == "?print":
