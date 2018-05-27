@@ -126,7 +126,7 @@ def act(c,msg,sender,mem):
                 if r != currentSong:
                     shutUp = False
                     
-                if shutUp == True:
+                if shutUp == True and sender not in details.admins:
                     r = ""
                 elif r == currentSong and sender not in details.admins:
                     r = "it's still the same song"
