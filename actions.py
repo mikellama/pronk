@@ -167,25 +167,25 @@ def act(c,msg,sender,mem):
                 r = "not now " + sender
 
         ## youtube titles cause the other bots were down
-        #elif c == "youtube.com/watch?":
-        #    linkStart = msg.find("youtube.com/watch?")
-        #    linkEnd = msg[linkStart:].find(" ") + linkStart + 1
-        #    url = "https://www."
-        #    if linkEnd == linkStart: #no space after URL
-        #        url += msg[linkStart:]
-        #    else: 
-        #        url += msg[linkStart:linkEnd]
-        #
-        #    page = requests.get(url)
-        #
-        #    soup = BeautifulSoup(page.text, "lxml")
-        #
-        #    t = soup.title.text[:-10]
-        #    try:
-        #        v = soup.find("div", {"class": "watch-view-count"}).text
-        #        r = t + " :: " + v
-        #    except:
-        #        r = t
+        elif c == "youtube.com/watch?":
+            linkStart = msg.find("youtube.com/watch?")
+            linkEnd = msg[linkStart:].find(" ") + linkStart + 1
+            url = "https://www."
+            if linkEnd == linkStart: #no space after URL
+                url += msg[linkStart:]
+            else: 
+                url += msg[linkStart:linkEnd]
+        
+            page = requests.get(url)
+        
+            soup = BeautifulSoup(page.text, "lxml")
+        
+            t = soup.title.text[:-10]
+            try:
+                v = soup.find("div", {"class": "watch-view-count"}).text
+                r = t + " :: " + v
+            except:
+                r = t
 
         ## Print Stuff
         elif c == "?print":
