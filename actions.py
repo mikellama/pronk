@@ -62,7 +62,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
@@ -175,7 +175,6 @@ def act(c,msg,sender,mem):
                 url += msg[linkStart:]
             else: 
                 url += msg[linkStart:linkEnd]
-        
             page = requests.get(url)
         
             soup = BeautifulSoup(page.text, "lxml")
@@ -186,10 +185,48 @@ def act(c,msg,sender,mem):
                 r = t + " :: " + v
             except:
                 r = t
-
-        ## Print Stuff
+        
         elif c == "?print":
-            print(pollList)
+            pass
+
+        ## Weather
+        elif c == "?weather":
+            place = msg[msg.find("?weather")+9:].split(" ")
+            countryState = place.pop()
+            city = "_".join(place)
+            url = "http://api.wunderground.com/api/" + details.wuAPI_key + "/conditions/forecast/q/"
+            url += countryState + "/" + city + ".json"
+            try:
+                j = json.loads(urllib2.urlopen(url).read())
+                if "results" in j["response"]:
+                    r = "Could you be more specific?"
+                elif "error" in j["response"]:
+                    r = j["response"]["error"]["description"]
+                else:
+                    try:
+                        f = j["forecast"]["txt_forecast"]["forecastday"]
+                        c = j["current_observation"]
+                        location = c["display_location"]["full"]
+
+                        #ask for fahrenhiet in US
+                        if c["display_location"]["country"] in ["US"]:
+                            scale = "fcttext"
+                        else:
+                            scale = "fcttext_metric"
+
+                        weather = c["weather"] + " " + str(c["temp_f"])+"F/"+str(c["temp_c"])+"C"
+
+                        forecast = ""
+                        for i in range(2):
+                            if f[i][scale] != "":
+                                forecast += f[i]["title"]+": "
+                                forecast += f[i][scale] + " "
+
+                        r = " :: ".join([location, weather, forecast])
+                    except:
+                        pass
+            except:
+                r = "something terrible happened but I'm not sure what..."
 
         ## Dictionary
         elif c == "?dict":
