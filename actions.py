@@ -168,20 +168,19 @@ def act(c,msg,sender,mem):
 
         ## youtube titles cause the other bots were down
         elif c == "youtube.com/watch?" or c == "youtu.be/":
+            msg += " "
             if c == "youtube.com/watch?":
-                linkStart = msg.find("youtube.com/watch?")
+                vcodeStart = msg.find("youtube.com/watch?") + 20
+                vcodeEnd = msg[vcodeStart:].find(" ") + vcodeStart
+                vcode = msg[vcodeStart:vcodeEnd]
             elif c == "youtu.be/":
-                linkStart = msg.find("youtu.be/")
-            linkEnd = msg[linkStart:].find(" ") + linkStart + 1
-            url = "https://"
-            if linkEnd == linkStart: #no space after URL
-                url += msg[linkStart:]
-            else: 
-                url += msg[linkStart:linkEnd]
+                vcodeStart = msg.find("youtu.be/") + 9
+                vcodeEnd = msg[vcodeStart:].find(" ") + vcodeStart
+                vcode = msg[vcodeStart:vcodeEnd]
+
+            url = "https://youtube.com/watch?v=" + vcode
             page = requests.get(url)
-        
             soup = BeautifulSoup(page.text, "lxml")
-        
             t = soup.title.text[:-10]
             try:
                 v = soup.find("div", {"class": "watch-view-count"}).text
