@@ -66,7 +66,7 @@ listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?po
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
-commands += ["youtube.com/watch?"]
+commands += ["youtube.com/watch?", "youtu.be/"]
 
 yesNo = ["yes", "no", "y", "n"]
 currentSong = "It Will Never Be This"
@@ -167,10 +167,13 @@ def act(c,msg,sender,mem):
                 r = "not now " + sender
 
         ## youtube titles cause the other bots were down
-        elif c == "youtube.com/watch?":
-            linkStart = msg.find("youtube.com/watch?")
+        elif c == "youtube.com/watch?" or c == "youtu.be/":
+            if c == "youtube.com/watch?":
+                linkStart = msg.find("youtube.com/watch?")
+            elif c == "youtu.be/":
+                linkStart = msg.find("youtu.be/")
             linkEnd = msg[linkStart:].find(" ") + linkStart + 1
-            url = "https://www."
+            url = "https://"
             if linkEnd == linkStart: #no space after URL
                 url += msg[linkStart:]
             else: 
