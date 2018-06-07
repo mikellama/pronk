@@ -165,32 +165,7 @@ def act(c,msg,sender,mem):
 	                    r = "I don't hear anything."			
             except:
                 r = "not now " + sender
-
-        ## youtube titles cause the other bots were down
-        elif c == "youtube.com/watch?" or c == "youtu.be/":
-            msg += " "
-            if c == "youtube.com/watch?":
-                vcodeStart = msg.find("youtube.com/watch?") + 20
-                vcodeEnd = msg[vcodeStart:].find(" ") + vcodeStart
-                vcode = msg[vcodeStart:vcodeEnd]
-            elif c == "youtu.be/":
-                vcodeStart = msg.find("youtu.be/") + 9
-                vcodeEnd = msg[vcodeStart:].find(" ") + vcodeStart
-                vcode = msg[vcodeStart:vcodeEnd]
-
-            url = "https://youtube.com/watch?v=" + vcode
-            page = requests.get(url)
-            soup = BeautifulSoup(page.text, "lxml")
-            t = soup.title.text[:-10]
-            try:
-                v = soup.find("div", {"class": "watch-view-count"}).text
-                r = t + " :: " + v
-            except:
-                r = t
         
-        elif c == "?print":
-            pass
-
         ## Weather
         elif c == "?weather":
             place = msg[msg.find("?weather")+9:].split(" ")
