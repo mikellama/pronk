@@ -61,10 +61,10 @@ reply["?pebble"]         =  "o"
 reply["?pronk"]          =  "Who me? llamabot by mikellama, https://github.com/mikellama/ircbot-llama/"
 reply["?radio"]          =  "http://letty.tk/"
 reply["?Roserin"]        =  "?Hm yes."
-reply["?shantaram3013"]  =  "The cliche Asian whiz kid/emotional teenager. Loves electrical engineering and hanging out on ##llamas."
+reply["?shan"]           =  "hi. is me. shan."
 reply["?DetectiveTaco"]  =  "Im yummy! Gobble me up in a hurry and go to taco heaven!"
 reply["?Time-Warp"]      =  "TIZ TEH TIME-WARP! SPOTTED O_O"
-reply["?website"]        =  "http://llamas.haxed.net"
+reply["?Hm yes"]         =  "?Roserin."
 reply["?welcome"]        =  "[Welcome to ##llamas] - \"Keep calm and be a llama!\" We generally talk about anything here."
 reply["?wodencafe"]      =  "The Java master!"
 reply["?WSPR"]           =  "Weak Signal Propagation Reporter"
@@ -74,7 +74,3 @@ reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougar
 reply["?stats"]          =  "http://llamas.haxed.net:8880/%23llamas/top/total/words/"
 reply["?stream"]         =  "http://letty.tk:8000/stream"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
-
-
-
-
