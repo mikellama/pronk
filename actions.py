@@ -359,7 +359,7 @@ def act(c,msg,sender,mem):
                 query = msg[msg.find("?ud") + 4:].replace('"',"'")
                 defs = ud.define(query)
                 for d in defs[:3]:
-                    r += d.definition.replace('\n', ' ').replace('\r', ' ')
+                    r += d.definition.replace('\n', ' ').replace('\r', ' ') + " || "
             except:
                 r = "well that didn't work :/"
             if r == "":
