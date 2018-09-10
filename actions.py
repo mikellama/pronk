@@ -399,14 +399,16 @@ def act(c,msg,sender,mem):
                     r = "that's not how this works"
                 else:
                     try:
-                        print(query)
                         allDefs = ud.define(query)
                         allDefs.sort(key=lambda x: x.upvotes, reverse=True)
-                        defs = [d for d in allDefs if d.word.lower() == query]
+                        defs = [d for d in allDefs if d.word.lower() == query.lower()]
+                        print(len(defs))
+                        defs = [d for d in defs if d.upvotes > d.downvotes]
+                        print(len(defs))
                         if len(defs) == 0:
                             r = "I didn't find anything for '" + query + "'."
-                            if len(allDefs) > 0:
-                                r += " How 'bout '" + allDefs[0].word + "'?"
+                            #if len(allDefs) > 0:
+                            #    r += " How 'bout '" + allDefs[0].word + "'?"
 
                         elif n != 999:
                             if len(defs) < n:
