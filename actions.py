@@ -62,7 +62,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
-listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather", "?slap"]
+listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather", "?slap", "?c2f", "?f2c"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
@@ -325,7 +325,28 @@ def act(c,msg,sender,mem):
                 r = str(n)
             except:
                 r = "Is that even math?"
+
+        ## Temp Conversion
+        elif c == "?f2c":
+            ot = msg[msg.find("?f2c") + 5:]
+            try:
+                ot = float(ot)
+            except:
+                r = "uh... numbers please"
+            else:
+                nt = (ot - 32)*(5/9)
+                r = str(round(nt, 2))
         
+        elif c == "?c2f":
+            ot = msg[msg.find("?c2f") + 5:]
+            try:
+                ot = float(ot)
+            except:
+                r = "uh... numbers please"
+            else:
+                nt = ot*(9/5) + 32
+                r = str(round(nt, 2))
+
         ## Slap
         elif c == "?slap":
             audience = msg[msg.find("?slap") + 6:]
