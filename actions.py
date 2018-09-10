@@ -65,7 +65,7 @@ sys.setdefaultencoding('utf8')
 listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather", "?slap", "?c2f", "?f2c"]
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
-commands += ["?ignore", "?save", "?bye", "?ignoring", "?print"]
+commands += ["?ignore", "?save", "?bye", "?ignoring", "?print", "?test"]
 commands += ["youtube.com/watch?", "youtu.be/"]
 
 yesNo = ["yes", "no", "y", "n"]
@@ -376,11 +376,20 @@ def act(c,msg,sender,mem):
 		
         ##  Urban Dictionary.
         elif c == "?ud":
+            if msg.find("?ude") != -1:
+                example = True
+            else:
+                example = False
             try:
                 query = msg[msg.find("?ud") + 4:].replace('"',"'")
                 defs = ud.define(query)
-                for d in defs[:3]:
-                    r += d.definition.replace('\n', ' ').replace('\r', ' ') + " || "
+                defs.sort(key=lambda x: x.upvotes, reverse=True)
+                for d in defs:
+                    r += d.definition.replace('\n', ' ').replace('\r', ' ')
+                    if example:
+                        r += " {" + d.example + "}"
+                    r += " | "
+                r = r.replace("[", "").replace("]", "")
             except:
                 r = "well that didn't work :/"
             if r == "":
@@ -420,11 +429,11 @@ def act(c,msg,sender,mem):
 
             except:
 	            r = "something went wrong :/"
-        
+
         ### ADMIN FEATURES
         ## Save Status and exit
         elif c == "?bye" and sender in details.admins:
-            print('goodbye')            
+            print('goodbye')
             saveStatus()
             exit(0)
 
