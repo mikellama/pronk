@@ -385,11 +385,12 @@ def act(c,msg,sender,mem):
                 defs = ud.define(query)
                 defs.sort(key=lambda x: x.upvotes, reverse=True)
                 for d in defs:
-                    r += d.definition.replace('\n', ' ').replace('\r', ' ')
+                    r += d.definition
                     if example:
                         r += " {" + d.example + "}"
                     r += " | "
                 r = r.replace("[", "").replace("]", "")
+                r = r.replace('\n', ' ').replace('\r', ' ')
             except:
                 r = "well that didn't work :/"
             if r == "":
