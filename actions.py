@@ -376,25 +376,60 @@ def act(c,msg,sender,mem):
 		
         ##  Urban Dictionary.
         elif c == "?ud":
-            if msg.find("?ude") != -1:
-                example = True
-            else:
-                example = False
+            example = False
+            n = 999
             try:
-                query = msg[msg.find("?ud") + 4:].replace('"',"'")
-                defs = ud.define(query)
-                defs.sort(key=lambda x: x.upvotes, reverse=True)
-                for d in defs:
-                    r += d.definition.replace("[", "").replace("]", "")
-                    if example:
-                        r += " {" + d.example.replace("[", "").replace("]", "") + "}"
-                    r += " | "
-                r = r.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
-                r = r.replace('  ', ' ')
-            except:
-                r = "well that didn't work :/"
-            if r == "":
-                r = "I didn't find anything for '"+query+"'"
+                key = msg[msg.find("?ud") + 3]
+            except IndexError:
+                r = "that's not how this works"
+            else:
+                if key.lower() == "e":
+                    example = True
+                    query = msg[msg.find("?ud") + 5:].replace('"',"'")
+
+                elif key.isdigit() and key != ' ':
+                    n = int(key)
+                    if n == 0:
+                        n = 10
+                    query = msg[msg.find("?ud") + 5:].replace('"',"'")
+                else:
+                    query = msg[msg.find("?ud") + 4:].replace('"',"'")
+                
+                if query.replace(" ", "") == "":
+                    r = "that's not how this works"
+                else:
+                    try:
+                        print(query)
+                        allDefs = ud.define(query)
+                        allDefs.sort(key=lambda x: x.upvotes, reverse=True)
+                        defs = [d for d in allDefs if d.word.lower() == query]
+                        if len(defs) == 0:
+                            r = "I didn't find anything for '" + query + "'."
+                            if len(allDefs) > 0:
+                                r += " How 'bout '" + allDefs[0].word + "'?"
+
+                        elif n != 999:
+                            if len(defs) < n:
+                                r = "I only found " + str(len(defs)) + " matches."
+                            else:
+                                r = str(n) + ". " + defs[n-1].definition
+                                r += " {" + defs[n-1].example + "}"
+
+                        else:
+                            for i,d in enumerate(defs):
+                                r += str(i+1) + ". " + d.definition
+                                if example:
+                                    r += " {" + d.example + "}"
+                                r += " | "
+
+                        r = r.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
+                        r = r.replace("[", "").replace("]", "")
+                        r = r.replace('  ', ' ')                    
+                
+                    except:
+                        r = "well that didn't work :/"
+                    if r == "":
+                        r = "I didn't find anything for '"+query+"'"
 
 
         ##  Wikipedia.

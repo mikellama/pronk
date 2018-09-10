@@ -41,7 +41,7 @@
 
 ##  Import the required libraries/files for this to work.
 import re, socket, os
-from time import sleep
+import time
 import actions
 import mwaaa
 import details
@@ -55,7 +55,7 @@ sock.send("NICK "+details.nick+"\n")
 
 ## Identify with services
 sock.send("PRIVMSG NickServ :identify "+details.secret+" \n")
-sleep(30)  # finish ident before joining channel
+time.sleep(30)  # finish ident before joining channel
 
 ## Join a channel
 sock.send("JOIN "+details.channel+"\n")
@@ -64,20 +64,30 @@ sock.send("JOIN "+details.channel+"\n")
 ##  Instantiate message buffer.
 msgMem = []
 
+
+last_ping = time.time()
+timeout = 45 * 60
 while True:
     msg = sock.recv(2048)
     msg = msg.strip("\n\r")
     
+    ##  If you receive a /PING send a response.
+    if msg.find("PING :") != -1:
+        sock.send("PONG :pingis\n")
+        last_ping = time.time()
+    ## Break while loop if not PINGed after timeout seconds
+    if (time.time() - last_ping) > timeout:
+        break
+
+    if len(msg) < 1:
+        break
+
     sender = msg[1:msg.find('!')]
     mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
     msgMem.append(sender +"??"+ msg[mloc:])
 
     if len(msgMem) > 20:
         msgMem.pop(0)
-
-    ##  If you receive a /PING send a response.
-    if msg.find("PING :") != -1:
-        sock.send("PONG :pingis\n")
 
     ##  If you find the update key defined in mwaaa.py, print 'update complete' and reload actions.py and mwaaa.py
     if msg.find(mwaaa.updateKey) != -1:
@@ -100,4 +110,4 @@ while True:
                 except IndexError:
                     pass
 
-
+print("it's all over man")
