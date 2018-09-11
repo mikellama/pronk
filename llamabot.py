@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 #
 ## Copyright (C) 2018 Mike Rose
 #
@@ -64,30 +64,34 @@ sock.send("JOIN "+details.channel+"\n")
 ##  Instantiate message buffer.
 msgMem = []
 
-
 last_ping = time.time()
-timeout = 45 * 60
+timeout = 15 * 60
+
 while True:
     msg = sock.recv(2048)
     msg = msg.strip("\n\r")
     
-    ##  If you receive a /PING send a response.
-    if msg.find("PING :") != -1:
-        sock.send("PONG :pingis\n")
-        last_ping = time.time()
-    ## Break while loop if not PINGed after timeout seconds
-    if (time.time() - last_ping) > timeout:
-        break
-
-    if len(msg) < 1:
-        break
-
+    
     sender = msg[1:msg.find('!')]
     mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
     msgMem.append(sender +"??"+ msg[mloc:])
 
     if len(msgMem) > 20:
         msgMem.pop(0)
+
+    ##  If you receive a /PING send a response.
+    if msg.find("PING :") != -1:
+        sock.send("PONG :pingis\n")
+        last_ping = time.time()
+    ## Break while loop if not PINGed after timeout seconds
+    if (time.time() - last_ping) > timeout:
+        print("ping timeout")
+        break
+
+    if len(msg) < 1 and (msgMem) > 1:
+        print("empty buffer exit")
+        break
+
 
     ##  If you find the update key defined in mwaaa.py, print 'update complete' and reload actions.py and mwaaa.py
     if msg.find(mwaaa.updateKey) != -1:
@@ -110,4 +114,4 @@ while True:
                 except IndexError:
                     pass
 
-print("it's all over man")
+print("It's all over man.")
