@@ -51,8 +51,8 @@ reply["?GPenguin"]       =  "Being from Germany, he enjoys meeting all kinds of 
 reply["?help"]           =  "You're on your own."
 reply["?Kremator"]       =  "Booo!"
 reply["?letty"]          =  "All hail letty, our llama queen. She's leet af."
-reply["?mike_check"]     =  "My daddy! :)"
-reply["?mikez"]          =  "My daddy! :)"
+reply["?mike_check"]     =  "Hello father"
+reply["?mikez"]          =  "Hello father"
 reply["?more"]           =  "No! No more!"
 reply["?mwaaa"]          =  "That's llama speak."
 reply["?Nawab"]          =  "The cool and sometimes mischievious guy next door who likes C++ and tea."
@@ -74,3 +74,4 @@ reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougar
 reply["?stats"]          =  "http://llamas.haxed.net:8880/%23llamas/top/total/words/"
 reply["?stream"]         =  "http://letty.tk:8000/stream"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
+
