@@ -40,22 +40,37 @@
 
 
 ##  Import the required libraries/files for this to work.
-import re, socket, os
-import time
+import re, socket, os, time, ssl, base64
 import actions
 import mwaaa
 import details
 
 
-##  Connect to the internet, then to IRC (at freenode for now, but it can be changed to other servers).
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("irc.freenode.net", 6667))
-sock.send("USER "+details.username+" 2 3 "+details.username+ "\n")
-sock.send("NICK "+details.nick+"\n")
+## open socket
+sock = socket.socket()
+sock = ssl.wrap_socket(sock)
+sock.connect(("irc.freenode.net", 6697))
 
-## Identify with services
-sock.send("PRIVMSG NickServ :identify "+details.secret+" \n")
-time.sleep(30)  # finish ident before joining channel
+## Authenticate to Server
+sock.send("CAP REQ :sasl\n")
+time.sleep(0.5)
+sock.send("NICK " + details.nick + " \n")
+sock.send("USER " + details.nick + " hostname servername :" + details.username + " \n")
+sock.send("AUTHENTICATE PLAIN\n")
+
+null = u"\u0000"
+authMessage = details.nick + null + details.nick + null + details.secret
+authMessage = base64.b64encode(unicode(authMessage))
+
+while True:
+    msg = sock.recv(2048)
+    if msg.find("AUTHENTICATE +") != -1:
+        sock.send("AUTHENTICATE " + authMessage + "\n")
+    if msg.find(":SASL authentication successful") != -1:
+        sock.send("CAP END\n")
+        print("SASL authentication successful\n")
+        break
+
 
 ## Join a channel
 sock.send("JOIN "+details.channel+"\n")
@@ -69,8 +84,7 @@ timeout = 15 * 60
 
 while True:
     msg = sock.recv(2048)
-    msg = msg.strip("\n\r")
-    
+    msg = msg.strip("\n\r")  
     
     sender = msg[1:msg.find('!')]
     mloc = msg.find("PRIVMSG "+details.channel)+len(details.channel)+10
@@ -115,3 +129,4 @@ while True:
                     pass
 
 print("It's all over man.")
+
