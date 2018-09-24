@@ -176,32 +176,38 @@ def act(c,msg,sender,mem):
             try:
                 j = json.loads(urllib2.urlopen(url).read())
                 if "results" in j["response"]:
-                    r = "Could you be more specific?"
+                    # r = "Could you be more specific?"
+                    url = "http://api.wunderground.com/api/" + details.wuAPI_key + "/conditions/forecast/"
+                    url += j["response"]["results"][0]["l"] + ".json"
+                    try:
+                        j = json.loads(urllib2.urlopen(url).read())
+                    except:
+                        r = "Nope."
                 elif "error" in j["response"]:
                     r = j["response"]["error"]["description"]
-                else:
-                    try:
-                        f = j["forecast"]["txt_forecast"]["forecastday"]
-                        c = j["current_observation"]
-                        location = c["display_location"]["full"]
+                try:
+                    f = j["forecast"]["txt_forecast"]["forecastday"]
+                    c = j["current_observation"]
+                    location = c["display_location"]["full"]
 
-                        #ask for fahrenhiet in US
-                        if c["display_location"]["country"] in ["US"]:
-                            scale = "fcttext"
-                        else:
-                            scale = "fcttext_metric"
+                    #ask for fahrenhiet in US
+                    if c["display_location"]["country"] in ["US"]:
+                        scale = "fcttext"
+                    else:
+                        scale = "fcttext_metric"
 
-                        weather = c["weather"] + " " + str(c["temp_f"])+"F/"+str(c["temp_c"])+"C"
+                    weather = c["weather"] + " " + str(c["temp_f"])+"F/"+str(c["temp_c"])+"C"
 
-                        forecast = ""
-                        for i in range(2):
-                            if f[i][scale] != "":
-                                forecast += f[i]["title"]+": "
-                                forecast += f[i][scale] + " "
+                    forecast = ""
+                    for i in range(2):
+                        if f[i][scale] != "":
+                            forecast += f[i]["title"]+": "
+                            forecast += f[i][scale] + " "
 
-                        r = " :: ".join([location, weather, forecast])
-                    except:
-                        pass
+                    r = " :: ".join([location, weather, forecast])
+                except:
+                    "Fail."
+
             except:
                 r = "something terrible happened but I'm not sure what..."
 
