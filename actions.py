@@ -48,7 +48,8 @@ import mwaaa
 import details
 import random
 from HTMLParser import HTMLParser
-from imdbparser import IMDb
+# from imdbparser import IMDb
+import imdbparser
 import sys
 import pickle
 import os.path
@@ -63,6 +64,9 @@ sys.setdefaultencoding('utf8')
 
 ##  Define a list of commands.
 listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather", "?slap", "?c2f", "?f2c"]
+
+listCommands.remove("?song")
+
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
 commands += ["?ignore", "?save", "?bye", "?ignoring", "?print", "?test"]
@@ -168,7 +172,7 @@ def act(c,msg,sender,mem):
         
         ## Weather
         elif c == "?weather":
-            place = msg[msg.find("?weather")+9:].split(" ")
+            place = msg[msg.lower().find("?weather")+9:].split(" ")
             countryState = place.pop()
             city = "_".join(place)
             url = "http://api.wunderground.com/api/" + details.wuAPI_key + "/conditions/forecast/q/"
@@ -213,7 +217,7 @@ def act(c,msg,sender,mem):
 
         ## Dictionary
         elif c == "?dict":
-            words = msg[msg.find("?dict")+6:].lower().split()
+            words = msg[msg.lower().find("?dict")+6:].lower().split()
             if len(words) > 2:
                 r = "?dict <word> [partOfSpeech]"
             elif len(words) == 2:
@@ -233,7 +237,7 @@ def act(c,msg,sender,mem):
                     r = "*"+words[0]+"* not found in dictionary"                 
         ## Poll
         elif c == "?poll":
-            poll = msg[msg.find("?poll") + 6:]
+            poll = msg[msg.lower().find("?poll") + 6:]
             if poll.find("close #") != -1:
                 # close and send results if starter or admin
                 pass
@@ -259,7 +263,7 @@ def act(c,msg,sender,mem):
         
         ## Vote
         elif c == "?vote":
-            m = msg[msg.find("?vote") + 5:]
+            m = msg[msg.lower().find("?vote") + 5:]
             try:
                 n = re.search(r'\d+', m).group()
                 if m.replace("#","").find(n) > 1:
@@ -284,7 +288,7 @@ def act(c,msg,sender,mem):
         
         ## Poll Results
         elif c == "?results":
-            m = msg[msg.find("?results") + 8:]
+            m = msg[msg.lower().find("?results") + 8:]
             try:
                 n = re.search(r'\d+', m).group()
                 pollNum = int(n)-1
@@ -306,7 +310,7 @@ def act(c,msg,sender,mem):
         ##  get answer from yahoo answers.
         elif c == "?ask":
             try:
-                question = msg[msg.find("?ask") + 5:]
+                question = msg[msg.lower().find("?ask") + 5:]
                 if len(question) > 1:
                     h = HTMLParser()
                     req = requests.get("http://api.haxed.net/answers/?b&q=" + question)
@@ -323,7 +327,7 @@ def act(c,msg,sender,mem):
 
         ## Calculator
         elif c == "?calc":
-            equation = msg[msg.find("?calc") + 6:].replace("^", "**")
+            equation = msg[msg.lower().find("?calc") + 6:].replace("^", "**")
             try:
                 n = round(eval(equation), 4)
                 if n.is_integer():
@@ -334,7 +338,7 @@ def act(c,msg,sender,mem):
 
         ## Temp Conversion
         elif c == "?f2c":
-            ot = msg[msg.find("?f2c") + 5:]
+            ot = msg[msg.lower().find("?f2c") + 5:]
             try:
                 ot = float(ot)
             except:
@@ -344,7 +348,7 @@ def act(c,msg,sender,mem):
                 r = str(round(nt, 2))
         
         elif c == "?c2f":
-            ot = msg[msg.find("?c2f") + 5:]
+            ot = msg[msg.lower().find("?c2f") + 5:]
             try:
                 ot = float(ot)
             except:
@@ -355,18 +359,18 @@ def act(c,msg,sender,mem):
 
         ## Slap
         elif c == "?slap":
-            audience = msg[msg.find("?slap") + 6:]
+            audience = msg[msg.lower().find("?slap") + 6:]
             if len(audience) > 1:
-                r = sender + " slaps him or herself for the amusement of " + audience
+                r = sender + " slaps himself for the amusement of " + audience
             else:
-                r = sender + " slaps him or herself."
+                r = sender + " slaps himself."
         
         ## Ted Bundy
         elif c == "?ftb":
-            ted = msg[msg.find("?ftb") + 5:]
+            ted = msg[msg.lower().find("?ftb") + 5:]
             r = "Funny thing about " + ted + ": She turned out to be Ted Bundy right after murdering someone."
         elif c == "?tb":
-            ted = msg[msg.find("?tb") + 4:]
+            ted = msg[msg.lower().find("?tb") + 4:]
             r = "Funny thing about " + ted + ": He turned out to be Ted Bundy right after murdering someone."
 
 
@@ -385,21 +389,21 @@ def act(c,msg,sender,mem):
             example = False
             n = 999
             try:
-                key = msg[msg.find("?ud") + 3]
+                key = msg[msg.lower().find("?ud") + 3]
             except IndexError:
                 r = "that's not how this works"
             else:
                 if key.lower() == "e":
                     example = True
-                    query = msg[msg.find("?ud") + 5:].replace('"',"'")
+                    query = msg[msg.lower().find("?ud") + 5:].replace('"',"'")
 
                 elif key.isdigit() and key != ' ':
                     n = int(key)
                     if n == 0:
                         n = 10
-                    query = msg[msg.find("?ud") + 5:].replace('"',"'")
+                    query = msg[msg.lower().find("?ud") + 5:].replace('"',"'")
                 else:
-                    query = msg[msg.find("?ud") + 4:].replace('"',"'")
+                    query = msg[msg.lower().find("?ud") + 4:].replace('"',"'")
                 
                 if query.replace(" ", "") == "":
                     r = "that's not how this works"
@@ -439,7 +443,7 @@ def act(c,msg,sender,mem):
 
         ##  Wikipedia.
         elif c == "?wiki":
-            query = msg[msg.find("?wiki") + 6:]
+            query = msg[msg.lower().find("?wiki") + 6:]
             if len(query) > 1:
                 try:
                     r = wikipedia.summary(query, sentences=3)
@@ -456,20 +460,52 @@ def act(c,msg,sender,mem):
 
         ##  IMDb.
         elif c == "?imdb":
-            imdb = IMDb()
-            title = msg[msg.find("?imdb") + 6:]
+            msg += ' '
+            title = msg[msg.lower().find("?imdb") + 6:]
+            key = msg[msg.lower().find("?imdb") + 5]
+            #bu = "https://www.imdb.com/find?q=%s&s=tt&exact=true"
+            #imdbparser.searchresult.SearchResult.base_url = bu
+            imdb = imdbparser.IMDb()
+            r = ""
+            k = 0
+            searchResult = imdb.search_movie(title)
+            searchResult.fetch()
+            nResults = len(searchResult.results)
+            oneMovie = True
             try:
-	            searchResult = imdb.search_movie(title)
-	            searchResult.fetch()
-	            movie = searchResult.results[0]
-	            movie.fetch()
-	            if len(searchResult.results) < 1:
-		            r = "I didn't find anything"
-	            else:
-		            r = movie.title+" ("+str(movie.year)+") "+'-'.join(movie.genres)+" ["+str(movie.rating)+"/10] "+str(movie.plot)
+                if nResults < 1:
+                    r = "I didn't find anything"
+                    oneMovie = False
+                elif key.isdigit():
+                    if nResults < int(key):
+                        r = "There is no " + key
+                        oneMovie = False
+                    else:
+                        k = int(key)
+                elif key == '0' or key.lower() == "l":
+                    oneMovie = False
+                    movieList = []
+                    for i,m in enumerate(searchResult.results[:min(10, nResults)]):
+                        mov = str(i+1)+". "+m.title.encode('utf-8')+" ("+str(m.year)+") "
+                        mov += "https://imdb.com/title/tt"+str(m.imdb_id)+"/"
+                        movieList.append(mov)
+                    r = ' | '.join(movieList)
 
+                if oneMovie == True:
+                    movie = searchResult.results[k]
+                    movie.fetch()
+                    r = movie.title.encode('utf-8')
+                    if movie.year == None:
+                        r+= " ["+movie.release_date+"] "+'-'.join(movie.genres)
+                    else:
+                        r+=" ("+str(movie.year)+") "+'-'.join(movie.genres)
+                    if movie.rating != None:
+                        r += " ["+str(movie.rating)+"/10]"
+                    if movie.plot != None:
+                        r += " " + movie.plot.encode('utf-8')
             except:
-	            r = "something went wrong :/"
+                r = "Oh darn. It broke."
+
 
         ### ADMIN FEATURES
         ## Save Status and exit
@@ -480,7 +516,7 @@ def act(c,msg,sender,mem):
 
         ## Ignore abusers
         elif c == "?ignore" and sender in details.admins:
-            person = msg[msg.find("?ignore") + 8:]
+            person = msg[msg.lower().find("?ignore") + 8:]
             if len(person) == 0:
                 pass
             elif person[-1] == " ":
@@ -491,6 +527,7 @@ def act(c,msg,sender,mem):
             else:
                 ignoreList.append(person)
                 print(ignoreList)
+
         ##  Save Status
         elif c == "?save" and sender in details.admins:
             print('status saved to llamaStatus.pkl')
