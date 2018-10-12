@@ -65,7 +65,7 @@ sys.setdefaultencoding('utf8')
 ##  Define a list of commands.
 listCommands = ["?song", "?ask", "?wiki", "?ud", "?imdb", "?coin", "?calc", "?poll", "?vote", "?results", "?roll", "?dict", "?weather", "?slap", "?c2f", "?f2c"]
 
-listCommands.remove("?song")
+# listCommands.remove("?song")
 
 commands = listCommands + list(mwaaa.reply.keys())
 commands += ["PRIVMSG "+details.nick, mwaaa.updateKey, "?list", "?ftb", "?tb"]
