@@ -74,5 +74,5 @@ reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougar
 reply["?stats"]          =  "http://llamas.haxed.net:8880/%23llamas/top/total/words/"
 reply["?stream"]         =  "http://letty.tk:8000/stream.mp3"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
-reply["Squiggle"]        =  "~"
+reply["?Squiggle"]        =  "~"
 
