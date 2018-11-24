@@ -143,7 +143,7 @@ class Checker(threading.Thread):
 
 checker = Checker()
 checker.start()
-checker.pause()
+checker.resume()
 
 while True:
     msg = sock.recv(2048)
