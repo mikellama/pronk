@@ -76,4 +76,5 @@ reply["?stream"]         =  "http://letty.tk:8000/stream.mp3"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
 reply["?Squiggle"]        =  "~"
 reply["?placebo"]        = "Checkmate."
+reply["?Aztec03"]        = "good lord! beaver dams!"
 
