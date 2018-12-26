@@ -73,6 +73,7 @@ reply["?Zerock"]         =  "Henlo. Please remember, Zerock is the leetest llama
 reply["?diogenese"]      =  "Please excuse the mess. You know how playful cougars can be."
 reply["?stats"]          =  "http://llamas.haxed.net:8880/%23llamas/top/total/words/"
 reply["?stream"]         =  "http://letty.tk:8000/stream.mp3"
+reply["?music"]         =  "http://letty.tk:8000/stream.mp3"
 reply["?hfl"]            =  "Hooray For Lettyisms!"
 reply["?Squiggle"]        =  "~"
 reply["?placebo"]        = "Checkmate."
