@@ -81,5 +81,4 @@ reply["?placebo"]        =  "Checkmate."
 reply["?Aztec03"]        =  "good lord! beaver dams!"
 reply["?chris28"]        =  "chris27 was taken."
 reply["?violet"]         =  "remember I'll always love you, bye"
-reply["?place"]          =  "mikey is #1!"
 
