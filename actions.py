@@ -376,7 +376,7 @@ def act(c,msg,sender,mem):
 
         ##  Coin Flip
         elif c == "?coin":
-            r = "heads"
+            r = "TAILS!"
             # r = random.sample(["heads", "tails"], 1)
             # r = r[0]
 		
