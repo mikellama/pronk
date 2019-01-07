@@ -376,9 +376,17 @@ def act(c,msg,sender,mem):
 
         ##  Coin Flip
         elif c == "?coin":
-            r = "TAILS!"
-            # r = random.sample(["heads", "tails"], 1)
-            # r = r[0]
+            try:
+                if msg[msg.lower().find("?coin") + 7:] == " ":
+                    r = "tails"
+                elif msg[msg.lower().find("?coin") + 6:] == " ":
+                    r = "heads"
+                else:
+                    r = random.sample(["heads", "tails"], 1)
+                    r = r[0]
+            except:
+                r = random.sample(["heads", "tails"], 1)
+                r = r[0]
 		
         ##  Dice
         elif c == "?roll":
