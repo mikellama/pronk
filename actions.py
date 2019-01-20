@@ -138,6 +138,10 @@ def act(c,msg,sender,mem):
                 else:
                     shutUp = False
                     currentSong = r
+                    
+                    with open('songed','a') as S:
+                        S.write(t + '\n\n')
+
                     '''
                     response = urllib2.urlopen("http://letty.tk/likes.txt")              
                     songList = []
