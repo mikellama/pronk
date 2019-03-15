@@ -120,7 +120,7 @@ def act(c,msg,sender,mem):
             global currentSong
             global shutUp
             try:
-                req = requests.get("http://letty.tk:8000/status-json.xsl")
+                req = requests.get("http://radio.llama.army:8000/status-json.xsl")
 
                 j = json.loads(req.text)
                 l = str(j["icestats"]["source"]["listeners"])
@@ -142,34 +142,6 @@ def act(c,msg,sender,mem):
                     shutUp = False
                     currentSong = r
                     
-
-                    '''
-                    response = urllib2.urlopen("http://letty.tk/likes.txt")              
-                    songList = []
-                    
-                    cr = csv.reader(response, delimiter="|")
-                    for row in cr:
-                        songList.append([row[2],row[4]])
-                    
-                    likes = 0
-                    dislikes = 0
-                    
-                    for song in songList:
-                        if song[1] == r:
-                            if song[0] == "like":
-                                likes += 1
-                            else:
-                                dislikes += 1
-                    if likes > 0 or dislikes > 0:
-                        r += " ["                    
-                        if likes > 0:
-                            r += "+" + str(likes)
-                            if dislikes > 0:
-                                r += " "
-                        if dislikes > 0:
-                            r += "-" + str(dislikes)
-                        r += "]"                  
-                    '''
                     if len(r) < 3:
 	                    r = "I don't hear anything."			
             except:
